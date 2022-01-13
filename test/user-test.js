@@ -3,66 +3,75 @@ const expect = chai.expect;
 import users from './sample-test-data/user-test-data';
 import bookings from './sample-test-data/bookings-test-data';
 import rooms from './sample-test-data/rooms-test-data';
+import User from '../src/classes/User'
 
 
 
 describe('User', () => {
 
   let user;
+  let booking1 = bookings[0];
+  let booking2 = bookings[1];
 
   beforeEach(() => {
-    user = new User(users, bookings, rooms)
+    user = new User(users[0], bookings, rooms);
   });
 
-  it.skip('should be a function', () => {
+  it('should be a function', () => {
     expect(User).to.be.a('function');
   });
 
-  it.skip('should be an instance of user', () => {
+  it('should be an instance of user', () => {
     expect(user).to.be.an.instanceof(User);
   });
 
-  it.skip('should have an id', () => {
-    expect(user[0].id).to.equal(9);
+  it('should have users', () => {
+    expect(user).to.be.an('object');
   });
 
-  it.skip('should have a name', () => {
-    expect(user[0].name).to.equal('Faustino Quitzon');
+  it('should have an id', () => {
+    expect(user.id).to.equal(9);
   });
 
-  it.skip('should be able to not have any past bookings', () => {
-    expect(user.pastBookings.length).to.equal(0);
-    expect(user.pastBookings.length).to.deep.equal([]);
+  it('should have a name', () => {
+    expect(user.name).to.equal('Faustino Quitzon');
   });
 
-  it.skip('should be able to have past bookings', () => {
-    let pastBookings = user.addBooking(booking);
-
-    expect(pastBookings).to.be.a('function');
-    expect(user.pastBookings.length).to.equal(1);
-    expect(user.pastBookings[0].id).to.equal('5fwrgu4i7k55hl6t6');
-    expect(user.pastBookings[0].userID).to.equal(13);
-    expect(user.pastBookings[0].date).to.equal('2022/01/10');
-    expect(user.pastBookings[0].roomNumber).to.equal(12);
-    expect(user.pastBookings[0].roomServiceCharges).to.deep.equal([]);
+  it('should be able to not have any bookings', () => {
+    expect(user.bookings.length).to.equal(0);
+    expect(user.bookings).to.deep.equal([]);
   });
 
-  it.skip('should be able to add current bookings', () => {
-    let bookedRoom = user.addBooking(booking);
+  it('should be able to add bookings', () => {
+    user.addBooking(booking1);
 
-    expect(bookedRoom).to.be.a('function');
-    expect(user.currentBookings.length).to.equal(1);
-    expect(user.pastBookings[0].id).to.equal('5fwrgu4i7k55hl6sz');
-    expect(user.pastBookings[0].userID).to.equal(9);
-    expect(user.pastBookings[0].date).to.equal('2022/04/22');
-    expect(user.pastBookings[0].roomNumber).to.equal(15);
-    expect(user.pastBookings[0].roomServiceCharges).to.deep.equal([]);
+    expect(user.addBooking).to.be.a('function');
+    expect(user.bookings.length).to.equal(1);
+    expect(user.bookings[0].id).to.equal('5fwrgu4i7k55hl6sz');
+    expect(user.bookings[0].userID).to.equal(9);
+    expect(user.bookings[0].date).to.equal('2022/04/22');
+    expect(user.bookings[0].roomNumber).to.equal(15);
+    expect(user.bookings[0].roomServiceCharges).to.deep.equal([]);
   });
 
-  it.skip('should calculate how much they have spent so far', () => {
-    let totalSpent = user.calculateTotalSpent();
+  it('should initially start off without spending anything', () => {
+    expect(user.totalSpent).to.equal(0);
+  });
 
-    expect(totalSpent).to.be.a('function');
-    expect(user.totalSpent).to.equal(172.09);
+  it('should calculate how much they have spent so far', () => {
+    user.addBooking(booking1);
+    user.calculateTotalSpent(rooms);
+
+    expect(user.calculateTotalSpent).to.be.a('function');
+    expect(user.totalSpent).to.equal(294.56);
+  });
+
+  it('should update how much they have spent', () => {
+    user.addBooking(booking1);
+    user.addBooking(booking2);
+
+    user.calculateTotalSpent(rooms);
+
+    expect(user.totalSpent).to.equal(621.80);
   });
 });
