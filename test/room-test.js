@@ -1,44 +1,46 @@
 import chai from 'chai';
 const expect = chai.expect;
-import users from './sample-test-data/user-test-data';
-import bookings from './sample-test-data/bookings-test-data';
 import rooms from './sample-test-data/rooms-test-data';
-import Booking from '../src/classes/Booking';
+import Room from '../src/classes/Booking';
 
 describe('Booking', () => {
 
-  let booking;
-  let booking1 = bookings[3];
+  let room;
+  let room1 = rooms[0];
 
   beforeEach(() => {
-    booking = new Booking(booking1);
+    room = new Room(room1);
   });
 
-  it('should be a function', () => {
-    expect(Booking).to.be.a('function');
+  it.skip('should be a function', () => {
+    expect(Room).to.be.a('function');
   });
 
-  it('should be an instance of Booking', () => {
-    expect(booking).to.be.an.instanceof(Booking);
+  it.skip('should be an instance of Booking', () => {
+    expect(room).to.be.an.instanceof(Room);
   });
 
-  it('should have an id', () => {
-    expect(booking.id).to.equal('5fwrgu4i7k55hl792');
+  it.skip('should have a room number', () => {
+    expect(room1.number).to.equal(12);
   });
 
-  it('should have a user id', () => {
-    expect(booking.userID).to.equal(9);
+  it.skip('should have a room type', () => {
+    expect(room1.roomType).to.equal('single room');
   });
 
-  it('should have a date', () => {
-    expect(booking.date).to.equal('2022/01/10');
+  it.skip('should have the option to include a bidet', () => {
+    expect(room1.bidet).to.equal(false);
   });
 
-  it('should have a room number', () => {
-    expect(booking.roomNumber).to.equal(19);
+  it.skip('should have a bed size', () => {
+    expect(room1.bedSize).to.equal('twin');
   });
 
-  it('should not have any room service charges', () => {
-    expect(booking.roomServiceCharges).to.deep.equal([]);
+  it.skip('should have a number of beds', () => {
+    expect(room1.numBeds).to.equal(2);
+  });
+
+  it.skip('should have a cost per night', () => {
+    expect(room1.costPerNight).to.equal(172.09);
   });
 });
