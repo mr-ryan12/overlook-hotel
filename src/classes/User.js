@@ -4,8 +4,10 @@ class User {
     this.name = user.name;
     this.bookings = [];
     this.totalSpent = 0;
+    this.pastBookings = [];
   }
 
+  // Modify this function to only add bookings for a specific user
   addBooking(booking) {
     this.bookings.push(booking);
   }
@@ -16,7 +18,24 @@ class User {
       acc += foundRoom.costPerNight;
       return acc;
     }, 0);
-    return this.totalSpent;
+    return this.totalSpent.toFixed(2);
+  }
+
+  findPastBookings(date) {
+    const splitTodaysDate = date.split('/');
+
+    this.pastBookings = this.bookings.filter(booking => {
+      const splitBookingDate = booking.date.split('/');
+      if (splitBookingDate[0] < splitTodaysDate[0]) {
+        return booking;
+      } else if (splitBookingDate[0] === splitTodaysDate[0] && splitBookingDate[1] < splitTodaysDate[1]) {
+        return booking;
+      } else if (splitBookingDate[1] === splitTodaysDate[1] && splitBookingDate[2] < splitTodaysDate[2]) {
+        return booking;
+      }
+    })
+    console.log(this.pastBookings);
+    return this.pastBookings;
   }
 }
 

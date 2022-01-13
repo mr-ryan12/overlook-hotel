@@ -10,8 +10,9 @@ import User from '../src/classes/User'
 describe('User', () => {
 
   let user;
-  let booking1 = bookings[0];
-  let booking2 = bookings[1];
+  let booking1 = bookings[3];
+  let booking2 = bookings[4];
+  let booking3 = bookings[0];
 
   beforeEach(() => {
     user = new User(users[0], bookings, rooms);
@@ -23,10 +24,6 @@ describe('User', () => {
 
   it('should be an instance of user', () => {
     expect(user).to.be.an.instanceof(User);
-  });
-
-  it('should have users', () => {
-    expect(user).to.be.an('object');
   });
 
   it('should have an id', () => {
@@ -47,14 +44,14 @@ describe('User', () => {
 
     expect(user.addBooking).to.be.a('function');
     expect(user.bookings.length).to.equal(1);
-    expect(user.bookings[0].id).to.equal('5fwrgu4i7k55hl6sz');
+    expect(user.bookings[0].id).to.equal('5fwrgu4i7k55hl792');
     expect(user.bookings[0].userID).to.equal(9);
-    expect(user.bookings[0].date).to.equal('2022/04/22');
-    expect(user.bookings[0].roomNumber).to.equal(15);
+    expect(user.bookings[0].date).to.equal('2022/01/10');
+    expect(user.bookings[0].roomNumber).to.equal(19);
     expect(user.bookings[0].roomServiceCharges).to.deep.equal([]);
   });
 
-  it('should initially start off without spending anything', () => {
+  it('should have a default amount spent', () => {
     expect(user.totalSpent).to.equal(0);
   });
 
@@ -63,7 +60,7 @@ describe('User', () => {
     user.calculateTotalSpent(rooms);
 
     expect(user.calculateTotalSpent).to.be.a('function');
-    expect(user.totalSpent).to.equal(294.56);
+    expect(user.totalSpent).to.equal(374.67);
   });
 
   it('should update how much they have spent', () => {
@@ -72,6 +69,23 @@ describe('User', () => {
 
     user.calculateTotalSpent(rooms);
 
-    expect(user.totalSpent).to.equal(621.80);
+    expect(user.totalSpent).to.equal(551.03);
+  });
+
+  it('should default to no past bookings', () => {
+    expect(user.pastBookings.length).to.equal(0);
+  });
+
+  it('should have past bookings', () => {
+    const todaysDate = '2022/01/18';
+
+    user.addBooking(booking1);
+    user.addBooking(booking2);
+    user.addBooking(booking3);
+
+    user.findPastBookings(todaysDate);
+
+    expect(user.pastBookings.length).to.equal(2);
+    expect(user.pastBookings[0].id).to.equal('5fwrgu4i7k55hl792');
   });
 });
