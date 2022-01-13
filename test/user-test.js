@@ -8,6 +8,7 @@ describe('User', () => {
 
   let user;
   let bookings;
+  let rooms;
 
   it.skip('should be a function', () => {
     expect(User).to.be.a('function');
@@ -53,6 +54,11 @@ describe('User', () => {
     expect(user.pastBookings[0].roomNumber).to.equal(15);
     expect(user.pastBookings[0].roomServiceCharges).to.deep.equal([]);
   });
+
+  it.skip('should calculate how much they have spent so far', () => {
+    let totalSpent = user.calculateTotalSpent();
+
+    expect(totalSpent).to.be.a('function');
+    expect(user.totalSpent).to.equal(172.09);
+  });
 });
-
-
