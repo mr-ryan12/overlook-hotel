@@ -7,7 +7,6 @@ class User {
     this.pastBookings = [];
   }
 
-  // Modify this function to only add bookings for a specific user
   addBooking(booking) {
     this.bookings.push(booking);
   }
@@ -34,7 +33,6 @@ class User {
         return booking;
       }
     })
-    console.log(this.pastBookings);
     return this.pastBookings;
   }
 }
