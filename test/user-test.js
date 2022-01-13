@@ -1,14 +1,18 @@
 import chai from 'chai';
 const expect = chai.expect;
 import users from './sample-test-data/user-test-data';
-import bookings from './sample-test-data/user-test-data';
+import bookings from './sample-test-data/bookings-test-data';
+import rooms from './sample-test-data/rooms-test-data';
+
 
 
 describe('User', () => {
 
   let user;
-  let bookings;
-  let rooms;
+
+  beforeEach(() => {
+    user = new User(users, bookings, rooms)
+  });
 
   it.skip('should be a function', () => {
     expect(User).to.be.a('function');
@@ -19,11 +23,11 @@ describe('User', () => {
   });
 
   it.skip('should have an id', () => {
-    expect(user[0].id).to.equal(1);
+    expect(user[0].id).to.equal(9);
   });
 
   it.skip('should have a name', () => {
-    expect(user[0].name).to.equal('Leatha Ullrich');
+    expect(user[0].name).to.equal('Faustino Quitzon');
   });
 
   it.skip('should be able to not have any past bookings', () => {
