@@ -44,6 +44,15 @@
   margin-right: 5%;
 }
 
+.nav-dashboard-button,
+.available-rooms-button,
+.submit-button {
+  border-radius: 8px;
+  border: none;
+  background-color: #a8772d;
+  height: 3vh;
+}
+
 .dashboard {
   @include display-flex-justify-space-around();
   margin-top: 18vh;
@@ -119,9 +128,7 @@ button {
 
 .room-type-and-price-container,
 .price-and-book-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include display-flex-column-space-between();
   font-size: 10px;
   height: 13vh;
   margin-right: 3vh;

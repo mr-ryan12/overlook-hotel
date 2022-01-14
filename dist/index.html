@@ -13,7 +13,15 @@
     <p class="greeting" id="js-greeting">Welcome Pam! You have spent $4,392.94 so far!</p>
     <section class="nav-bar-button-container">
       <button class="nav-dashboard-button" id="dashboardButton">Dashboard</button>
-      <button class="room-types" id="roomTypes">Room Types</button>
+      <button class="available-rooms-button">Available Rooms</button>
+      <label for="roomTypes">Room Types:</label>
+      <select name="room-type" id="roomTypes">
+        <option value="">--Please choose an option--</option>
+        <option value="residential-suite">Residential Suite</option>
+        <option value="suite">Suite</option>
+        <option value="single-room">Single Room</option>
+        <option value="junior-suite">Junior Suite</option>
+      </select>
       <label class="search-for-booking-by-date" for="searchBookingByDate">Booking Date:</label>
       <input type="date" id="searchBookingByDate">
       <button class="submit-button" id="submitButton">Submit</button>
