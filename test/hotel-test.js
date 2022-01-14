@@ -24,46 +24,54 @@ describe('Hotel', () => {
     expect(hotel).to.be.an.instanceof(Hotel);
   });
 
-  it.skip('should have a default value if no guests are present', () => {
-    expect(hotel.guests).to.be.an('array');
-    expect(hotel.guests.length).to.equal(0);
-  })
+  it('should have a default value if no guests are present', () => {
+    const hotel1 = new Hotel();
 
-  it.skip('should have guests', () => {
+    expect(hotel1.guests).to.be.an('array');
+    expect(hotel1.guests.length).to.equal(0);
+  });
+
+  it('should have guests', () => {
     expect(hotel.guests).to.be.an('array');
     expect(hotel.guests.length).to.equal(3);
   });
 
-  it.skip('should have a default value if no rooms are present', () => {
-    expect(hotel.rooms).to.be.an('array');
-    expect(hotel.rooms.length).to.equal(0)
-  })
+  it('should have a default value if no rooms are present', () => {
+    const hotel1 = new Hotel();
 
-  it.skip('should have rooms', () => {
-    expect(hotel.rooms).to.be.an('array');
-    expect(hotel.rooms.length).to.equal(5);
+    expect(hotel1.rooms).to.be.an('array');
+    expect(hotel1.rooms.length).to.equal(0);
   });
 
-  it.skip('should have a default value if no bookings are present', () => {
-    expect(hotel.bookings).to.be.an('array');
-    expect(hotel.bookings.length).to.equal(0);
+  it('should have rooms', () => {
+    expect(hotel.rooms).to.be.an('array');
+    expect(hotel.rooms.length).to.equal(6);
   });
 
-  it.skip('should have bookings', () => {
+  it('should have a default value if no bookings are present', () => {
+    const hotel1 = new Hotel();
+
+    expect(hotel1.bookings).to.be.an('array');
+    expect(hotel1.bookings.length).to.equal(0);
+  });
+
+  it('should have bookings', () => {
     expect(hotel.bookings).to.be.an('array');
     expect(hotel.bookings.length).to.equal(3);
   });
 
   it.skip('should default to an empty list of available rooms', () => {
-    expect(hotel.availableRooms).to.be.an('array');
-    expect(hotel.availableRooms.length).to.equal(0);
-    expect(hotel.availableRooms).to.deep.equal([]);
+    const hotel1 = new Hotel();
+
+    expect(hotel1.availableRooms).to.be.an('array');
+    expect(hotel1.availableRooms.length).to.equal(0);
+    expect(hotel1.availableRooms).to.deep.equal([]);
   });
 
-  it.skip('should have a list of available rooms', () => {
+  it('should have a list of available rooms', () => {
     hotel.setAvailableRooms();
-    expect(hotel.availableRooms.length).to.equal()
-  })
+    expect(hotel.availableRooms.length).to.equal(4);
+  });
 
   it.skip('should have a default value if no rooms are available on a specific date', () => {
     const dateSearchValue = '2022/01/11';
@@ -105,7 +113,7 @@ describe('Hotel', () => {
     expect(hotel.availableRooms.length).to.equal(0);
     expect(hotel.availableRooms).to.deep.equal([]);
     expect(hotel.checkAvailableRoomsByType(filterTerm)).to.equal('So sorry, there are not any available rooms. Please adjust your search.')
-  })
+  });
 
   it.skip('should be able to filter the list of available rooms based on the room type', () => {
     const filterTerm = 'residential suite';
