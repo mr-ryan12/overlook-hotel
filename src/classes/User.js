@@ -5,6 +5,11 @@ class User {
     this.bookings = [];
     this.totalSpent = 0;
     this.pastBookings = [];
+    this.currentBookings = [];
+  }
+
+  setBookings(bookings) {
+    return this.bookings = bookings.filter(booking => booking.userID === this.id);
   }
 
   addBooking(booking) {
@@ -20,7 +25,7 @@ class User {
     return this.totalSpent.toFixed(2);
   }
 
-  findPastBookings(date) {
+  findCurrentAndPastBookings(date) {
     const splitTodaysDate = date.split('/');
 
     this.pastBookings = this.bookings.filter(booking => {
@@ -29,8 +34,10 @@ class User {
         return booking;
       } else if (splitBookingDate[0] === splitTodaysDate[0] && splitBookingDate[1] < splitTodaysDate[1]) {
         return booking;
-      } else if (splitBookingDate[1] === splitTodaysDate[1] && splitBookingDate[2] < splitTodaysDate[2]) {
+      } else if (splitBookingDate[0] === splitTodaysDate[0] && splitBookingDate[1] === splitTodaysDate[1] && splitBookingDate[2] < splitTodaysDate[2]) {
         return booking;
+      } else {
+        this.currentBookings.push(booking);
       }
     })
     return this.pastBookings;

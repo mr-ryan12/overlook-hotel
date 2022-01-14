@@ -54,10 +54,21 @@ describe('Hotel', () => {
     expect(hotel.bookings.length).to.equal(3);
   });
 
+  it.skip('should default to an empty list of available rooms', () => {
+    expect(hotel.availableRooms).to.be.an('array');
+    expect(hotel.availableRooms.length).to.equal(0);
+    expect(hotel.availableRooms).to.deep.equal([]);
+  });
+
+  it.skip('should have a list of available rooms', () => {
+    hotel.setAvailableRooms();
+    expect(hotel.availableRooms.length).to.equal()
+  })
+
   it.skip('should have a default value if no rooms are available on a specific date', () => {
     const dateSearchValue = '2022/01/11';
 
-    hotel.checkAvailableRooms(dateSearchValue);
+    hotel.checkAvailableRoomsByDate(dateSearchValue);
 
     expect(hotel.availableRooms).to.be.an('array');
     expect(hotel.availableRooms.length).to.equal(0);
@@ -66,10 +77,10 @@ describe('Hotel', () => {
   it.skip('should return a message to the user if there are not any rooms available based on their search date', () => {
     const dateSearchValue = '2022/01/11';
 
-    hotel.checkAvailableRooms(dateSearchValue);
+    hotel.checkAvailableRoomsByDate(dateSearchValue);
 
     expect(hotel.availableRooms.length).to.equal(0);
-    expect(hotel.checkAvailableRooms(dateSearchValue)).to.equal('So sorry, there are not any available rooms. Please adjust your search.');
+    expect(hotel.checkAvailableRoomsByDate(dateSearchValue)).to.equal('So sorry, there are not any available rooms. Please adjust your search.');
   });
 
   it.skip('should return a list of rooms on a specific date', () => {
@@ -104,6 +115,6 @@ describe('Hotel', () => {
 
     expect(hotel.filterTerm).to.equal('residential suite');
     expect(hotel.availableRooms.length).to.equal(2);
-    expect(hotes.availableRooms).to.deep.equal(roomsAvailable);
+    expect(hotel.availableRooms).to.deep.equal(roomsAvailable);
   });
 });
