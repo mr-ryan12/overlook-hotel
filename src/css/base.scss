@@ -83,11 +83,15 @@
 .past-visits-card,
 .upcoming-visits-card,
 .available-rooms-card {
-  @include display-flex-justify-space-between();
+  @include display-flex-justify-space-around();
   align-items: center;
   height: 13vh;
   background-color: $gold;
   margin: 1.5vh;
+}
+
+.available-rooms-card {
+  @include display-flex-justify-space-between();
 }
 
 .available-rooms-image {
