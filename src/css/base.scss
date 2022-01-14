@@ -47,38 +47,48 @@
 }
 
 .past-visits-container,
-.upcoming-visits-container {
+.upcoming-visits-container,
+.available-rooms-container {
   height: 76%;
   width: 39%;
   background-color: $white;
 }
 
 .past-visits-header-container,
-.upcoming-visits-header-container {
+.upcoming-visits-header-container,
+.available-rooms-header-container {
   @include display-flex-justify-center-align-center();
   height: 13%;
   background-color: $gold;
 }
 
 .past-visits-header,
-.upcoming-visits-header {
+.upcoming-visits-header,
+.available-rooms-header {
   margin: 0;
   font-size: 25px;
 }
 
 .past-visits-cards-container,
-.upcoming-visits-cards-container {
+.upcoming-visits-cards-container,
+.available-rooms-cards-container {
   height: 53vh;
   margin-top: 4vh;
 }
 
 .past-visits-card,
-.upcoming-visits-card {
+.upcoming-visits-card,
+.available-rooms-card {
   @include display-flex-justify-space-around();
   align-items: center;
   height: 13vh;
   background-color: $gold;
   margin: 1.5vh;
+}
+
+.available-rooms-image {
+  width: 22%;
+  height: auto;
 }
 
 .room-number,
