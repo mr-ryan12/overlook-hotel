@@ -1,13 +1,42 @@
 /* This is an example of how to import a partial scss file*/
 @import '_variables';
+@import '_mixins.scss';
 
 .background-image {
-  min-height: 100%;
+  min-height: $one-hundred-percent;
   min-width: 1024px;
-  width: 100%;
+  width: $one-hundred-percent;
   height: auto;
   position: fixed;
   top: 0;
   left: 0;
 }
 
+.nav-bar {
+  width: $one-hundred-percent;
+  @include display-flex-row();
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  background-color: $nav-bar-background-color;
+  position: fixed;
+  top: 0;
+  height: 8vh;
+  margin: 0;
+  z-index: 9999;
+  left: 0;
+  color: $nav-bar-font-color;
+}
+
+.nav-bar-title-button {
+  position: absolute;
+  left: 10px;
+  border: none;
+  background: none;
+  color: $nav-bar-font-color;
+  font-size: 20px;
+}
+
+.hidden {
+  display: none;
+}
