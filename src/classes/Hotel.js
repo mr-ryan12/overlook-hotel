@@ -4,6 +4,7 @@ class Hotel {
     this.rooms = roomsData || [];
     this.bookings = bookingsData || [];
     this.availableRooms = [];
+    this.filterTerm = '';
   }
 
   setAvailableRooms(date) {
@@ -24,7 +25,26 @@ class Hotel {
   }
 
   checkAvailableRoomsByDate(date) {
+    const todaysDate = new Date().toISOString().split('T')[0].split('-').join('/');
+
+    if (date < todaysDate) {
+      return 'So sorry, there are not any available rooms. Please adjust your search.';
+    } else {
+      this.setAvailableRooms(date);
+      return this.availableRooms;
+    }
+  }
+
+  checkAvailableRoomsByType(term, date) {
+    this.checkAvailableRoomsByDate(date);
     
+    const foundRooms = this.availableRooms.filter(room => room.roomType === term);
+
+    if (foundRooms.length === 0) {
+      return 'So sorry, there are not any available rooms. Please adjust your search.';
+    }
+
+    return foundRooms;
   }
 }
 

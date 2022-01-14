@@ -57,7 +57,7 @@ describe('Hotel', () => {
 
   it('should have bookings', () => {
     expect(hotel.bookings).to.be.an('array');
-    expect(hotel.bookings.length).to.equal(7);
+    expect(hotel.bookings.length).to.equal(8);
   });
 
   it('should default to an empty list of available rooms', () => {
@@ -84,7 +84,7 @@ describe('Hotel', () => {
     expect(hotel.availableRooms.length).to.equal(0);
   });
 
-  it.skip('should return a message to the user if there are not any rooms available based on their search date', () => {
+  it('should return a message to the user if there are not any rooms available based on their search date', () => {
     const dateSearchValue = '2022/01/11';
 
     hotel.checkAvailableRoomsByDate(dateSearchValue);
@@ -93,38 +93,34 @@ describe('Hotel', () => {
     expect(hotel.checkAvailableRoomsByDate(dateSearchValue)).to.equal('So sorry, there are not any available rooms. Please adjust your search.');
   });
 
-  it.skip('should return a list of rooms on a specific date', () => {
+  it('should return a list of rooms on a specific date', () => {
     const dateSearchValue = '2022/01/18';
 
     hotel.checkAvailableRoomsByDate(dateSearchValue);
 
     expect(hotel.availableRooms).to.be.an('array');
-    expect(hotel.availableRooms.length).to.equal(5);
+    expect(hotel.availableRooms.length).to.equal(8);
   });
 
-  it.skip('should not have a room type search by default', () => {
+  it('should not have a room type search by default', () => {
     expect(hotel.filterTerm).to.be.a('string');
     expect(hotel.filterTerm).to.equal('');
   });
 
-  it.skip('should return a message if there are not any rooms available based on their room type search', () => {
-    const filterTerm = 'junior suite';
+  it('should return a message if there are not any rooms available based on their room type search', () => {
+    const filterTerm = 'junior';
+    const todaysDate = '2022/01/14'
 
-    hotel.checkAvailableRoomsByType(filterTerm);
+    hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
 
-    expect(hotel.availableRooms.length).to.equal(0);
-    expect(hotel.availableRooms).to.deep.equal([]);
-    expect(hotel.checkAvailableRoomsByType(filterTerm)).to.equal('So sorry, there are not any available rooms. Please adjust your search.')
+    expect(hotel.checkAvailableRoomsByType(filterTerm, todaysDate)).to.equal('So sorry, there are not any available rooms. Please adjust your search.')
   });
 
-  it.skip('should be able to filter the list of available rooms based on the room type', () => {
+  it('should be able to filter the list of available rooms based on the room type', () => {
     const filterTerm = 'residential suite';
-    const roomsAvailable = [rooms[6], rooms[7]];
+    const todaysDate = '2022/01/14';
+    const foundRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
 
-    hotel.filterAvailableRoomsByType(filterTerm);
-
-    expect(hotel.filterTerm).to.equal('residential suite');
-    expect(hotel.availableRooms.length).to.equal(2);
-    expect(hotel.availableRooms).to.deep.equal(roomsAvailable);
+    expect(foundRooms.length).to.equal(4);
   });
 });

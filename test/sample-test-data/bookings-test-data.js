@@ -47,6 +47,13 @@ const bookings = [
     "date": "2022/01/13",
     "roomNumber": 17,
     "roomServiceCharges": []
+  },
+  {
+    "id": "5fwrgu4i7k55hil6ty",
+    "userID": 24,
+    "date": "2022/01/18",
+    "roomNumber": 12,
+    "roomServiceCharges": []
   }
 ]
 
