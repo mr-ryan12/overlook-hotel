@@ -77,6 +77,27 @@
   font-size: 25px;
 }
 
+.past-visits-cards-container,
+.upcoming-visits-cards-container {
+  height: 53vh;
+  margin-top: 4vh;
+}
+
+.past-visits-card,
+.upcoming-visits-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 13vh;
+  background-color: $nav-bar-background-color;
+  margin: 1.5vh;
+}
+
+.room-number,
+.date-stayed {
+  font-size: $one-hundred-percent;
+}
+
 .hidden {
   display: none;
 }
