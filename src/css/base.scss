@@ -8,8 +8,7 @@
   width: $one-hundred-percent;
   height: auto;
   position: fixed;
-  top: 0;
-  left: 0;
+  @include top-left-zero();
   z-index: -1;
 }
 
@@ -19,14 +18,13 @@
   justify-content: flex-end;
   align-items: center;
   margin-top: 10px;
-  background-color: $nav-bar-background-color;
+  background-color: $gold;
   position: fixed;
-  top: 0;
+  @include top-left-zero();
   height: 8vh;
   margin: 0;
   z-index: 9999;
-  left: 0;
-  color: $nav-bar-font-color;
+  color: $black;
 }
 
 .nav-bar-title-button {
@@ -34,7 +32,7 @@
   left: 10px;
   border: none;
   background: none;
-  color: $nav-bar-font-color;
+  color: $black;
   font-size: 20px;
 }
 
@@ -43,12 +41,6 @@
 }
 
 .dashboard {
-  // display: flex;
-  // justify-content: center;
-  // align-content: center;
-  // margin: 10vh;
-  // height: 70%;
-  // width: 70%;
   display: flex;
   justify-content: space-around;
   margin-top: 18vh;
@@ -68,7 +60,7 @@
   justify-content: center;
   align-items: center;
   height: 13%;
-  background-color: $nav-bar-background-color;
+  background-color: $gold;
 }
 
 .past-visits-header,
@@ -89,7 +81,7 @@
   justify-content: space-around;
   align-items: center;
   height: 13vh;
-  background-color: $nav-bar-background-color;
+  background-color: $gold;
   margin: 1.5vh;
 }
 
