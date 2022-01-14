@@ -2,3 +2,8 @@
   display: flex;
   flex-direction: row;
 }
+
+@mixin display-flex-end() {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -10,6 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
 .nav-bar {
@@ -35,6 +36,45 @@
   background: none;
   color: $nav-bar-font-color;
   font-size: 20px;
+}
+
+.nav-bar-button-container {
+  margin-right: 1%;
+}
+
+.dashboard {
+  // display: flex;
+  // justify-content: center;
+  // align-content: center;
+  // margin: 10vh;
+  // height: 70%;
+  // width: 70%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 18vh;
+  height: 80vh;
+}
+
+.past-visits-container,
+.upcoming-visits-container {
+  height: 76%;
+  width: 39%;
+  background-color: $white;
+}
+
+.past-visits-header-container,
+.upcoming-visits-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 13%;
+  background-color: $nav-bar-background-color;
+}
+
+.past-visits-header,
+.upcoming-visits-header {
+  margin: 0;
+  font-size: 25px;
 }
 
 .hidden {
