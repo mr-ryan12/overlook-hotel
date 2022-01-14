@@ -41,8 +41,7 @@
 }
 
 .dashboard {
-  display: flex;
-  justify-content: space-around;
+  @include display-flex-justify-space-around();
   margin-top: 18vh;
   height: 80vh;
 }
@@ -56,9 +55,7 @@
 
 .past-visits-header-container,
 .upcoming-visits-header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include display-flex-justify-center-align-center();
   height: 13%;
   background-color: $gold;
 }
@@ -77,8 +74,7 @@
 
 .past-visits-card,
 .upcoming-visits-card {
-  display: flex;
-  justify-content: space-around;
+  @include display-flex-justify-space-around();
   align-items: center;
   height: 13vh;
   background-color: $gold;
@@ -88,6 +84,10 @@
 .room-number,
 .date-stayed {
   font-size: $one-hundred-percent;
+}
+
+button {
+  cursor: pointer;
 }
 
 .hidden {
