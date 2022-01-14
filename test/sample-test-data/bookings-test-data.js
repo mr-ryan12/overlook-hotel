@@ -41,6 +41,13 @@ const bookings = [
     "roomNumber": 25,
     "roomServiceCharges": []
   },
+  {
+    "id": "5fwrgu4i7k55hl6ty",
+    "userID": 50,
+    "date": "2022/01/13",
+    "roomNumber": 17,
+    "roomServiceCharges": []
+  }
 ]
 
 export default bookings;

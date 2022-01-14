@@ -8,9 +8,9 @@ import Hotel from '../src/classes/Hotel';
 describe('Hotel', () => {
 
   let hotel;
-  let usersData = [users[0], users[1], users[2]];
-  let roomsData = [rooms[0], rooms[1], rooms[2], rooms[3], rooms[4], rooms[5]];
-  let bookingsData = [bookings[0], bookings[1], bookings[2]];
+  let usersData = users;
+  let roomsData = rooms;
+  let bookingsData = bookings;
 
   beforeEach(() => {
     hotel = new Hotel(usersData, roomsData, bookingsData);
@@ -45,7 +45,7 @@ describe('Hotel', () => {
 
   it('should have rooms', () => {
     expect(hotel.rooms).to.be.an('array');
-    expect(hotel.rooms.length).to.equal(6);
+    expect(hotel.rooms.length).to.equal(9);
   });
 
   it('should have a default value if no bookings are present', () => {
@@ -57,10 +57,10 @@ describe('Hotel', () => {
 
   it('should have bookings', () => {
     expect(hotel.bookings).to.be.an('array');
-    expect(hotel.bookings.length).to.equal(3);
+    expect(hotel.bookings.length).to.equal(7);
   });
 
-  it.skip('should default to an empty list of available rooms', () => {
+  it('should default to an empty list of available rooms', () => {
     const hotel1 = new Hotel();
 
     expect(hotel1.availableRooms).to.be.an('array');
@@ -69,11 +69,13 @@ describe('Hotel', () => {
   });
 
   it('should have a list of available rooms', () => {
-    hotel.setAvailableRooms();
-    expect(hotel.availableRooms.length).to.equal(4);
+    const todaysDate = '2022/01/13';
+
+    hotel.setAvailableRooms(todaysDate);
+    expect(hotel.availableRooms.length).to.equal(8);
   });
 
-  it.skip('should have a default value if no rooms are available on a specific date', () => {
+  it('should have a default value if no rooms are available on a specific date', () => {
     const dateSearchValue = '2022/01/11';
 
     hotel.checkAvailableRoomsByDate(dateSearchValue);

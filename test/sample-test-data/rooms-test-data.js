@@ -63,6 +63,14 @@ const rooms = [
     "numBeds": 1,
     "costPerNight": 457.88
   },
+  {
+    "number": 17,
+    "roomType": "junior suite",
+    "bidet": false,
+    "bedSize": "twin",
+    "numBeds": 2,
+    "costPerNight": 328.15
+  },
 ]
 
 export default rooms;
