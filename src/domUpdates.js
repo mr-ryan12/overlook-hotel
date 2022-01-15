@@ -6,15 +6,15 @@ const domUpdates = {
   displayDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
     hide([availableRoomsContainer]);
     show([pastVisitsContainer, upcomingVisitsContainer]);
-    dashboardButton.classList.add('dark-beige');
-    availableRoomsButton.classList.remove('dark-beige');
+    dashboardButton.classList.add('beige');
+    availableRoomsButton.classList.remove('beige');
   },
 
   displayAvailableRooms(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
     hide([pastVisitsContainer, upcomingVisitsContainer]);
     show([availableRoomsContainer]);
-    dashboardButton.classList.remove('dark-beige');
-    availableRoomsButton.classList.add('dark-beige');
+    dashboardButton.classList.remove('beige');
+    availableRoomsButton.classList.add('beige');
   }
 }
 
