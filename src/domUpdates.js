@@ -35,9 +35,7 @@ const domUpdates = {
 
   displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings) {
     customerCurrentBookings = customerCurrentBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
-    console.log(customerCurrentBookings)
     customerCurrentBookings.forEach(booking => {
-      console.log(booking)
       currentVisitsCardsContainer.innerHTML += `
         <section class="upcoming-visits-card">
           <h2 class="room-number">Room Number: ${booking.roomNumber}</h2>

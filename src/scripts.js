@@ -32,8 +32,8 @@ const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContain
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
 
 const formatDates = date => {
-  const dateObj = new Date(date);
-  return new Intl.DateTimeFormat('en-US').format(dateObj);
+  const splitDate = date.split('/');
+  return [splitDate[1], splitDate[2], splitDate[0]].join('/');
 }
 
 const setCustomerData = (customer, rooms, bookings) => {
