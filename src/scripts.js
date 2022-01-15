@@ -1,11 +1,22 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import './images/main-hotel-image.png';
+import domUpdates from './domUpdates';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/main-hotel-image.png'
+const dashboardButton = document.getElementById('dashboardButton');
+const availableRoomsButton = document.getElementById('availableRoomsButton');
+const navBarTitleButton = document.getElementById('navBarTitleButton');
+const availableRoomsContainer = document.getElementById('availableRoomsContainer');
+const pastVisitsContainer = document.getElementById('pastVisitsContainer');
+const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
 
+dashboardButton.addEventListener('click', () => {
+  domUpdates.displayDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+});
 
-console.log('This is the JavaScript entry file - your code begins here.');
+navBarTitleButton.addEventListener('click', () => {
+  domUpdates.displayDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton);
+});
+
+availableRoomsButton.addEventListener('click', () => {
+  domUpdates.displayAvailableRooms(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+});

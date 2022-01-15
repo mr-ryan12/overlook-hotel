@@ -9,11 +9,11 @@
 <body>
   <img class="background-image" src="./images/main-hotel-image.png" alt="luxury hotel room with full size bed and view of the city">
   <nav class="nav-bar">
-    <button class="nav-bar-title-button">Overlook Hotel</button>
+    <button class="nav-bar-title-button" id="navBarTitleButton">Overlook Hotel</button>
     <p class="greeting" id="js-greeting">Welcome Pam! You have spent $4,392.94 so far!</p>
     <section class="nav-bar-button-container">
       <button class="nav-dashboard-button" id="dashboardButton">Dashboard</button>
-      <button class="available-rooms-button">Available Rooms</button>
+      <button class="available-rooms-button" id="availableRoomsButton">Available Rooms</button>
       <label for="roomTypes">Room Types:</label>
       <select name="room-type" id="roomTypes">
         <option value="">--Please choose an option--</option>
@@ -29,7 +29,7 @@
   </nav>
   <main>
     <section class="dashboard" id="dashboard">
-      <section class="past-visits-container hidden" id="pastVisitsContainer">
+      <section class="past-visits-container" id="pastVisitsContainer">
         <section class="past-visits-header-container">
           <h1 class="past-visits-header">Past Visits</h1>
         </section>
@@ -48,7 +48,7 @@
           </section>
         </section>
       </section>
-      <section class="upcoming-visits-container hidden" id="upcomingVisitsContainer">
+      <section class="upcoming-visits-container" id="upcomingVisitsContainer">
         <section class="upcoming-visits-header-container">
           <h1 class="upcoming-visits-header">Upcoming Visits</h1>
         </section>
@@ -67,7 +67,7 @@
           </section>
         </section>
       </section>
-      <section class="available-rooms-container" id="availableRoomsContainer">
+      <section class="available-rooms-container hidden" id="availableRoomsContainer">
         <section class="available-rooms-header-container">
           <h1 class="available-rooms-header">Available Rooms</h1>
         </section>

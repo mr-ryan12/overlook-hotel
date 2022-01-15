@@ -53,6 +53,10 @@
   height: 3vh;
 }
 
+.dark-beige {
+  background-color: $dark-beige;
+}
+
 .dashboard {
   @include display-flex-justify-space-around();
   margin-top: 18vh;
