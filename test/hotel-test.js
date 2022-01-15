@@ -128,7 +128,7 @@ describe('Hotel', () => {
 
   it('should be able to filter the list of available rooms based on the room type', () => {
     const filterTerm = 'residential suite';
-    const searchDate = '2022/01/14';
+    const searchDate = '2022/01/25';
     const foundRooms = hotel.checkAvailableRoomsByType(filterTerm, searchDate);
 
     expect(foundRooms.length).to.equal(4);

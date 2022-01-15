@@ -14,6 +14,7 @@ const getAllData = () => {
     .then(data => {
       customer = new User(data[0].customers[0]);
       setCustomerData(customer, data[1].rooms, data[2].bookings);
+      getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
       // customer.setBookings(data[2].bookings)
       // customer.calculateTotalSpent(data[1].rooms)
       // customer.findCurrentAndPastBookings('2022/01/14')
@@ -21,14 +22,15 @@ const getAllData = () => {
     .catch(err => console.log(err))
 }
 
-const dashboardButton = document.getElementById('dashboardButton');
-const availableRoomsButton = document.getElementById('availableRoomsButton');
-const navBarTitleButton = document.getElementById('navBarTitleButton');
-const availableRoomsContainer = document.getElementById('availableRoomsContainer');
-const pastVisitsContainer = document.getElementById('pastVisitsContainer');
-const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
 const greeting = document.getElementById('greeting');
+const dashboardButton = document.getElementById('dashboardButton');
+const navBarTitleButton = document.getElementById('navBarTitleButton');
+const pastVisitsContainer = document.getElementById('pastVisitsContainer');
+const availableRoomsButton = document.getElementById('availableRoomsButton');
+const availableRoomsContainer = document.getElementById('availableRoomsContainer');
+const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
 const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContainer');
+const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
 
 const formatDates = date => {
@@ -53,6 +55,17 @@ const setCustomerData = (customer, rooms, bookings) => {
   domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
 }
 
+
+const getAvailableRoomsWithoutInputs = (customers, rooms, bookings) => {
+  const hotel = new Hotel(customers, rooms, bookings);
+  const todaysDate = hotel.convertTodaysDate();
+  
+  hotel.setAvailableRooms(todaysDate);
+
+  const availableRooms = hotel.availableRooms;
+  
+  domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
+}
 
 
 

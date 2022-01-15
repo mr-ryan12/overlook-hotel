@@ -21,7 +21,7 @@ const domUpdates = {
     greeting.innerText = `Welcome ${customerFirstName}! You have spent $${totalSpent} so far!`
   },
 
-  // Refactor the below two functions into one maybe sort the dates as well
+  // Refactor the below two functions into one
   displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
     customerPastBookings = customerPastBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerPastBookings.forEach(booking => {
@@ -42,7 +42,29 @@ const domUpdates = {
           <h2 class="date-stayed">Booked For: ${booking.date}</h2>
         </section>`
     })
-  }
+  },
+
+  displayAvailableRooms(availableRoomsCardsContainer, availableRooms) {
+    // const splitAvailableRoomType = availableRooms.filter(room => room.roomType = room.roomType.split(' '));
+    // const convertAvailableRooms = splitAvailableRoomsTypes.filter(room => room.roomType)
+    availableRooms.forEach(room => {
+      const splitRoomType = room.roomType.split(' ');
+      let convertedType = [];
+      splitRoomType.forEach(type => convertedType.push(type.charAt(0).toUpperCase() + type.slice(1)));
+      availableRoomsCardsContainer.innerHTML += `
+      <section class="available-rooms-card">
+        <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
+        <section class="room-type-and-price-container">
+          <h2 class="room-type">${convertedType.join(' ')}</h2>
+          <h2 class="number-of-beds-and-size">1 Queen Sized Bed</h2>
+        </section>
+        <section class="price-and-book-container">
+          <h2 class="price-per-night">Price: $100.00/night</h2>
+          <button class="book-now-button" id="bookNowButton">Book Now!</button>
+        </section>
+      </section>`
+    })
+  },
 }
 
 export default domUpdates;
