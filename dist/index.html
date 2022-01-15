@@ -15,19 +15,20 @@
       <button class="nav-dashboard-button" id="dashboardButton">Dashboard</button>
       <button class="available-rooms-button" id="availableRoomsButton">Available Rooms</button>
       <label for="roomTypes">Room Types:</label>
-      <select name="room-type" id="roomTypes" required>
+      <select name="room-type" id="roomTypes">
         <option value="">--Please choose an option--</option>
         <option value="residential suite">Residential Suite</option>
         <option value="suite">Suite</option>
         <option value="single room">Single Room</option>
         <option value="junior suite">Junior Suite</option>
       </select>
-      <label class="search-for-booking-by-date" for="searchBookingByDate">Booking Date:</label>
-      <input type="date" id="searchRoomsByDate" required>
+      <label class="search-for-booking-by-date" for="searchRoomsByDate">Booking Date:</label>
+      <input type="date" id="searchRoomsByDate">
       <button class="submit-button" id="submitButton">Submit</button>
     </section>
   </nav>
   <main>
+    <p class="apologetic-message-container hidden" id="apologeticMessageContainer"></p>
     <section class="dashboard" id="dashboard">
       <section class="past-visits-container" id="pastVisitsContainer">
         <section class="past-visits-header-container">
@@ -45,7 +46,8 @@
         <section class="available-rooms-header-container">
           <h1 class="available-rooms-header">Available Rooms</h1>
         </section>
-        <section class="available-rooms-cards-container" id="availableRoomsCardsContainer"></section>
+        <section class="available-rooms-cards-container" id="availableRoomsCardsContainer">
+        </section>
       </section>
     </section>
   </main>

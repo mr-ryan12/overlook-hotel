@@ -66,6 +66,15 @@ const domUpdates = {
       </section>`
     })
   },
+
+  displayApologeticMessage(apologeticMessageContainer) {
+    show([apologeticMessageContainer]);
+    apologeticMessageContainer.innerText = `So sorry, there are not any rooms available with that criteria. Please try again.`;
+  },
+
+  resetApologeticMessage(apologeticMessageContainer) {
+    hide([apologeticMessageContainer]);
+  }
 }
 
 export default domUpdates;

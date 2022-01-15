@@ -32,6 +32,7 @@ const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer
 const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContainer');
 const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
+const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -64,23 +65,26 @@ const getAvailableRoomsWithoutInputs = () => {
 }
 
 const getAvailableRoomsWithInputs = () => {
-  let filteredRooms;
   const todaysDate = hotel.convertTodaysDate();
   const filterTerm = roomTypesInput.value;
   const dateInput = customerDateInput.value;
-
-  // hotel.setAvailableRooms(todaysDate);
-  console.log('available rooms before>>>>>>', hotel.availableRooms)
+  let filteredRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
 
   if (filterTerm !== '' && dateInput === '') {
-    // filteredRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
-    filteredRooms = hotel.availableRooms.filter(room => room.roomType === filterTerm);
-    console.log('available rooms after>>>>>>', filteredRooms)
-    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRooms)
+    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRooms);
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+    console.log(filteredRooms.length)
+    filteredRooms.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
+    resetInputs();
   } else {
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
+  // domUpdates.resetApologeticMessage(apologeticMessageContainer);
+}
+
+const resetInputs = () => {
+  roomTypesInput.value = '';
+  customerDateInput.value = '';
 }
 
 
