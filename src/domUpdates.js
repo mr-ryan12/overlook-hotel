@@ -3,18 +3,22 @@ const hide = elements => elements.forEach(element => element.classList.add('hidd
 
 
 const domUpdates = {
-  displayDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
+  displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
     hide([availableRoomsContainer]);
     show([pastVisitsContainer, upcomingVisitsContainer]);
     dashboardButton.classList.add('beige');
     availableRoomsButton.classList.remove('beige');
   },
 
-  displayAvailableRooms(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
+  displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
     hide([pastVisitsContainer, upcomingVisitsContainer]);
     show([availableRoomsContainer]);
     dashboardButton.classList.remove('beige');
     availableRoomsButton.classList.add('beige');
+  },
+
+  displayWelcomeMessage(greeting, totalSpent, customerFirstName) {
+    greeting.innerText = `Welcome ${customerFirstName}! You have spent $${totalSpent} so far!`
   }
 }
 
