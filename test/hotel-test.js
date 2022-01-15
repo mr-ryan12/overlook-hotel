@@ -68,6 +68,16 @@ describe('Hotel', () => {
     expect(hotel1.availableRooms).to.deep.equal([]);
   });
 
+  it('should have a date', () => {
+    let todaysDate = new Date();
+    const timezoneOffset = todaysDate.getTimezoneOffset();
+
+    todaysDate = new Date(todaysDate.getTime() - (timezoneOffset * 60 * 1000));
+    todaysDate = todaysDate.toISOString().split('T')[0].split('-').join('/');
+
+    expect(hotel.convertTodaysDate()).to.equal(todaysDate);
+  })
+
   it('should have a list of available rooms', () => {
     const todaysDate = '2022/01/13';
 
@@ -118,8 +128,8 @@ describe('Hotel', () => {
 
   it('should be able to filter the list of available rooms based on the room type', () => {
     const filterTerm = 'residential suite';
-    const todaysDate = '2022/01/14';
-    const foundRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
+    const searchDate = '2022/01/14';
+    const foundRooms = hotel.checkAvailableRoomsByType(filterTerm, searchDate);
 
     expect(foundRooms.length).to.equal(4);
   });

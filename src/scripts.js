@@ -1,6 +1,7 @@
 import './css/base.scss';
 import './images/main-hotel-image.png';
 import domUpdates from './domUpdates';
+import {customersData, roomsData, bookingsData} from './apiCalls';
 
 const dashboardButton = document.getElementById('dashboardButton');
 const availableRoomsButton = document.getElementById('availableRoomsButton');
@@ -20,3 +21,5 @@ navBarTitleButton.addEventListener('click', () => {
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
+
+
