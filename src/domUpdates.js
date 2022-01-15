@@ -45,8 +45,6 @@ const domUpdates = {
   },
 
   displayAvailableRooms(availableRoomsCardsContainer, availableRooms) {
-    // const splitAvailableRoomType = availableRooms.filter(room => room.roomType = room.roomType.split(' '));
-    // const convertAvailableRooms = splitAvailableRoomsTypes.filter(room => room.roomType)
     availableRooms.forEach(room => {
       const splitRoomType = room.roomType.split(' ');
       let convertedType = [];
@@ -56,10 +54,10 @@ const domUpdates = {
         <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
         <section class="room-type-and-price-container">
           <h2 class="room-type">${convertedType.join(' ')}</h2>
-          <h2 class="number-of-beds-and-size">1 Queen Sized Bed</h2>
+          <h2 class="number-of-beds-and-size">${room.numBeds} ${room.bedSize.charAt(0).toUpperCase() + room.bedSize.slice(1)}</h2>
         </section>
         <section class="price-and-book-container">
-          <h2 class="price-per-night">Price: $100.00/night</h2>
+          <h2 class="price-per-night">Price: $${room.costPerNight.toFixed(2)}/night</h2>
           <button class="book-now-button" id="bookNowButton">Book Now!</button>
         </section>
       </section>`
