@@ -21,12 +21,27 @@ const domUpdates = {
     greeting.innerText = `Welcome ${customerFirstName}! You have spent $${totalSpent} so far!`
   },
 
+  // Refactor the below two functions into one maybe sort the dates as well
   displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
+    customerPastBookings = customerPastBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerPastBookings.forEach(booking => {
       pastVisitsCardsContainer.innerHTML += `
         <section class="past-visits-card">
           <h2 class="room-number">Room Number: ${booking.roomNumber}</h2>
           <h2 class="date-stayed">Stayed On: ${booking.date}</h2>
+        </section>`
+    })
+  },
+
+  displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings) {
+    customerCurrentBookings = customerCurrentBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
+    console.log(customerCurrentBookings)
+    customerCurrentBookings.forEach(booking => {
+      console.log(booking)
+      currentVisitsCardsContainer.innerHTML += `
+        <section class="upcoming-visits-card">
+          <h2 class="room-number">Room Number: ${booking.roomNumber}</h2>
+          <h2 class="date-stayed">Booked For: ${booking.date}</h2>
         </section>`
     })
   }

@@ -89,8 +89,9 @@
 .past-visits-cards-container,
 .upcoming-visits-cards-container,
 .available-rooms-cards-container {
-  height: 53vh;
+  height: 44vh;
   margin-top: 4vh;
+  overflow: auto;
 }
 
 .past-visits-card,
