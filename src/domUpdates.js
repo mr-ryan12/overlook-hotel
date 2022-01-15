@@ -65,6 +65,7 @@ const domUpdates = {
         </section>
       </section>`
     })
+    this.resetApologeticMessage(apologeticMessageContainer);
   },
 
   displayApologeticMessage(apologeticMessageContainer) {
@@ -74,7 +75,7 @@ const domUpdates = {
 
   resetApologeticMessage(apologeticMessageContainer) {
     hide([apologeticMessageContainer]);
-  }
+  },
 }
 
 export default domUpdates;

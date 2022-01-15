@@ -124,6 +124,7 @@ navBarTitleButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 availableRoomsButton.addEventListener('click', () => {
+  domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.availableRooms)
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 
