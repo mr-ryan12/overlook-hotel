@@ -15,15 +15,15 @@
       <button class="nav-dashboard-button" id="dashboardButton">Dashboard</button>
       <button class="available-rooms-button" id="availableRoomsButton">Available Rooms</button>
       <label for="roomTypes">Room Types:</label>
-      <select name="room-type" id="roomTypes">
+      <select name="room-type" id="roomTypes" required>
         <option value="">--Please choose an option--</option>
-        <option value="residential-suite">Residential Suite</option>
+        <option value="residential ruite">Residential Suite</option>
         <option value="suite">Suite</option>
-        <option value="single-room">Single Room</option>
-        <option value="junior-suite">Junior Suite</option>
+        <option value="single room">Single Room</option>
+        <option value="junior suite">Junior Suite</option>
       </select>
       <label class="search-for-booking-by-date" for="searchBookingByDate">Booking Date:</label>
-      <input type="date" id="searchBookingByDate">
+      <input type="date" id="searchRoomsByDate" required>
       <button class="submit-button" id="submitButton">Submit</button>
     </section>
   </nav>
@@ -33,79 +33,19 @@
         <section class="past-visits-header-container">
           <h1 class="past-visits-header">Past Visits</h1>
         </section>
-        <section class="past-visits-cards-container" id="pastVisitsCardsContainer">
-          <!-- <section class="past-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Stayed On: 01/10/2022</h2>
-          </section>
-          <section class="past-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Stayed On: 01/10/2022</h2>
-          </section>
-          <section class="past-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Stayed On: 01/10/2022</h2>
-          </section> -->
-        </section>
+        <section class="past-visits-cards-container" id="pastVisitsCardsContainer"></section>
       </section>
       <section class="upcoming-visits-container" id="upcomingVisitsContainer">
         <section class="upcoming-visits-header-container">
           <h1 class="upcoming-visits-header">Upcoming Visits</h1>
         </section>
-        <section class="upcoming-visits-cards-container" id="upcomingVisitsCardsContainer">
-          <!-- <section class="upcoming-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Upcoming On: 01/19/2022</h2>
-          </section>
-          <section class="upcoming-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Upcoming On: 01/20/2022</h2>
-          </section>
-          <section class="upcoming-visits-card">
-            <h2 class="room-number">Room Number: 15</h2>
-            <h2 class="date-stayed">Upcoming On: 01/18/2022</h2>
-          </section> -->
-        </section>
+        <section class="upcoming-visits-cards-container" id="upcomingVisitsCardsContainer"></section>
       </section>
       <section class="available-rooms-container hidden" id="availableRoomsContainer">
         <section class="available-rooms-header-container">
           <h1 class="available-rooms-header">Available Rooms</h1>
         </section>
-        <section class="available-rooms-cards-container" id="availableRoomsCardsContainer">
-          <!-- <section class="available-rooms-card">
-            <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
-            <section class="room-type-and-price-container">
-              <h2 class="room-type">Residential Suite</h2>
-              <h2 class="number-of-beds-and-size">1 Queen Sized Bed</h2>
-            </section>
-            <section class="price-and-book-container">
-              <h2 class="price-per-night">Price: $100.00/night</h2>
-              <button class="book-now-button" id="bookNowButton">Book Now!</button>
-            </section>
-          </section>
-          <section class="available-rooms-card">
-            <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
-            <section class="room-type-and-price-container">
-              <h2 class="room-type">Residential Suite</h2>
-              <h2 class="number-of-beds-and-size">1 Queen Sized Bed</h2>
-            </section>
-            <section class="price-and-book-container">
-              <h2 class="price-per-night">Price: $100.00/night</h2>
-              <button class="book-now-button" id="bookNowButton">Book Now!</button>
-            </section>
-          </section>
-          <section class="available-rooms-card">
-            <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
-            <section class="room-type-and-price-container">
-              <h2 class="room-type">Residential Suite</h2>
-              <h2 class="number-of-beds-and-size">1 Queen Sized Bed</h2>
-            </section>
-            <section class="price-and-book-container">
-              <h2 class="price-per-night">Price: $100.00/night</h2>
-              <button class="book-now-button" id="bookNowButton">Book Now!</button>
-            </section>
-          </section> -->
-        </section>
+        <section class="available-rooms-cards-container" id="availableRoomsCardsContainer"></section>
       </section>
     </section>
   </main>

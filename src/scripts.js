@@ -20,7 +20,10 @@ const getAllData = () => {
 }
 
 const greeting = document.getElementById('greeting');
+const roomTypesInput = document.getElementById('roomTypes');
+const submitButton = document.getElementById('submitButton');
 const dashboardButton = document.getElementById('dashboardButton');
+const customerDateInput = document.getElementById('searchRoomsByDate');
 const navBarTitleButton = document.getElementById('navBarTitleButton');
 const pastVisitsContainer = document.getElementById('pastVisitsContainer');
 const availableRoomsButton = document.getElementById('availableRoomsButton');
@@ -64,7 +67,17 @@ const getAvailableRoomsWithoutInputs = (customers, rooms, bookings) => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
 }
 
+const getAvailableRoomsByInputs = (customers, rooms, bookings) => {
+  const hotel = new Hotel(customers, rooms, bookings);
+  const todaysDate = hotel.convertTodaysDate();
+  const filteredRooms = [];
+  const filterTerm = roomTypesInput.value;
+  const dateInput = customerDateInput.value;
 
+  if (filterTerm === '' && dateInput === '') {
+    domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  }
+}
 
 
 
@@ -99,13 +112,11 @@ window.addEventListener('load', getAllData);
 dashboardButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
-
 navBarTitleButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
-
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 
-
+submitButton.addEventListener('click', getAvailableRoomsByInputs)
