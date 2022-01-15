@@ -1,6 +1,139 @@
 /* This is an example of how to import a partial scss file*/
 @import '_variables';
+@import '_mixins.scss';
 
-body {
-  background: $primary-background;
+.background-image {
+  min-height: $one-hundred-percent;
+  min-width: 1024px;
+  width: $one-hundred-percent;
+  height: auto;
+  position: fixed;
+  @include top-left-zero();
+  z-index: -1;
+}
+
+.nav-bar {
+  width: $one-hundred-percent;
+  @include display-flex-row();
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  background-color: $gold;
+  position: fixed;
+  @include top-left-zero();
+  height: 8vh;
+  margin: 0;
+  z-index: 9999;
+  color: $black;
+}
+
+.nav-bar-title-button {
+  position: absolute;
+  left: 10px;
+  border: none;
+  background: none;
+  color: $black;
+  font-size: 20px;
+}
+
+.nav-bar-button-container {
+  margin-right: 1%;
+}
+
+.greeting {
+  margin-right: 5%;
+}
+
+.nav-dashboard-button,
+.available-rooms-button,
+.submit-button {
+  border-radius: 8px;
+  border: none;
+  background-color: #a8772d;
+  height: 3vh;
+}
+
+.dashboard {
+  @include display-flex-justify-space-around();
+  margin-top: 18vh;
+  height: 80vh;
+}
+
+.past-visits-container,
+.upcoming-visits-container,
+.available-rooms-container {
+  height: 76%;
+  width: 39%;
+  background-color: $white;
+}
+
+.past-visits-header-container,
+.upcoming-visits-header-container,
+.available-rooms-header-container {
+  @include display-flex-justify-center-align-center();
+  height: 13%;
+  background-color: $gold;
+}
+
+.past-visits-header,
+.upcoming-visits-header,
+.available-rooms-header {
+  margin: 0;
+  font-size: 25px;
+}
+
+.past-visits-cards-container,
+.upcoming-visits-cards-container,
+.available-rooms-cards-container {
+  height: 53vh;
+  margin-top: 4vh;
+}
+
+.past-visits-card,
+.upcoming-visits-card,
+.available-rooms-card {
+  @include display-flex-justify-space-around();
+  align-items: center;
+  height: 13vh;
+  background-color: $gold;
+  margin: 1.5vh;
+}
+
+.available-rooms-card {
+  @include display-flex-justify-space-between();
+}
+
+.available-rooms-image {
+  width: 22%;
+  height: auto;
+  margin-left: 1vh;
+}
+
+.room-number,
+.date-stayed {
+  font-size: $one-hundred-percent;
+}
+
+.book-now-button {
+  margin-bottom: 1.5vh;
+  border-radius: 8px;
+  border: none;
+  background-color: #a8772d;
+  height: 3vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+.room-type-and-price-container,
+.price-and-book-container {
+  @include display-flex-column-space-between();
+  font-size: 10px;
+  height: 13vh;
+  margin-right: 3vh;
+}
+
+.hidden {
+  display: none;
 }
