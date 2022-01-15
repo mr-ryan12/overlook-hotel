@@ -19,6 +19,16 @@ const domUpdates = {
 
   displayWelcomeMessage(greeting, totalSpent, customerFirstName) {
     greeting.innerText = `Welcome ${customerFirstName}! You have spent $${totalSpent} so far!`
+  },
+
+  displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
+    customerPastBookings.forEach(booking => {
+      pastVisitsCardsContainer.innerHTML += `
+        <section class="past-visits-card">
+          <h2 class="room-number">Room Number: ${booking.roomNumber}</h2>
+          <h2 class="date-stayed">Stayed On: ${booking.date}</h2>
+        </section>`
+    })
   }
 }
 

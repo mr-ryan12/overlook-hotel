@@ -28,16 +28,31 @@ const availableRoomsContainer = document.getElementById('availableRoomsContainer
 const pastVisitsContainer = document.getElementById('pastVisitsContainer');
 const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
 const greeting = document.getElementById('greeting');
+const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContainer')
+
+const formatDates = date => {
+  const dateObj = new Date(date);
+  console.log(dateObj)
+  return new Intl.DateTimeFormat('en-US').format(dateObj);
+}
 
 const setCustomerData = (customer, rooms, bookings) => {
   const hotel = new Hotel();
   const todaysDate = hotel.convertTodaysDate();
   const customerFirstName = customer.name.split(' ')[0];
-  const customerBookings = customer.setBookings(bookings);
+
+  customer.setBookings(bookings);
+  customer.findCurrentAndPastBookings(todaysDate);
+
+  const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
+  console.log(customerPastBookings);
+  const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
   const totalSpent = customer.calculateTotalSpent(rooms);
 
-  domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName)
+  domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
+  domUpdates.displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings);
 }
+
 
 
 
