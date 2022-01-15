@@ -6,13 +6,13 @@ import domUpdates from './domUpdates';
 import {customersData, roomsData, bookingsData} from './apiCalls';
 
 let customer;
-let rooms;
-let bookings;
+let hotel;
 
 const getAllData = () => {
   Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
       customer = new User(data[0].customers[0]);
+      hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings)
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
     })
@@ -39,7 +39,6 @@ const formatDates = date => {
 }
 
 const setCustomerData = (customer, rooms, bookings) => {
-  const hotel = new Hotel();
   const todaysDate = hotel.convertTodaysDate();
   const customerFirstName = customer.name.split(' ')[0];
 
@@ -56,25 +55,30 @@ const setCustomerData = (customer, rooms, bookings) => {
 }
 
 
-const getAvailableRoomsWithoutInputs = (customers, rooms, bookings) => {
-  const hotel = new Hotel(customers, rooms, bookings);
+const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
-  
   hotel.setAvailableRooms(todaysDate);
 
   const availableRooms = hotel.availableRooms;
-  
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
 }
 
-const getAvailableRoomsByInputs = (customers, rooms, bookings) => {
-  const hotel = new Hotel(customers, rooms, bookings);
+const getAvailableRoomsWithInputs = () => {
+  let filteredRooms;
   const todaysDate = hotel.convertTodaysDate();
-  const filteredRooms = [];
   const filterTerm = roomTypesInput.value;
   const dateInput = customerDateInput.value;
 
-  if (filterTerm === '' && dateInput === '') {
+  // hotel.setAvailableRooms(todaysDate);
+  console.log('available rooms before>>>>>>', hotel.availableRooms)
+
+  if (filterTerm !== '' && dateInput === '') {
+    // filteredRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
+    filteredRooms = hotel.availableRooms.filter(room => room.roomType === filterTerm);
+    console.log('available rooms after>>>>>>', filteredRooms)
+    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRooms)
+    domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  } else {
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
 }
@@ -119,4 +123,4 @@ availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 
-submitButton.addEventListener('click', getAvailableRoomsByInputs)
+submitButton.addEventListener('click', getAvailableRoomsWithInputs)

@@ -23,6 +23,7 @@ const domUpdates = {
 
   // Refactor the below two functions into one
   displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
+    pastVisitsCardsContainer.innerHTML = '';
     customerPastBookings = customerPastBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerPastBookings.forEach(booking => {
       pastVisitsCardsContainer.innerHTML += `
@@ -34,6 +35,7 @@ const domUpdates = {
   },
 
   displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings) {
+    currentVisitsCardsContainer.innerHTML = '';
     customerCurrentBookings = customerCurrentBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerCurrentBookings.forEach(booking => {
       currentVisitsCardsContainer.innerHTML += `
@@ -45,6 +47,7 @@ const domUpdates = {
   },
 
   displayAvailableRooms(availableRoomsCardsContainer, availableRooms) {
+    availableRoomsCardsContainer.innerHTML = '';
     availableRooms.forEach(room => {
       const splitRoomType = room.roomType.split(' ');
       let convertedType = [];
