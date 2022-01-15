@@ -15,9 +15,6 @@ const getAllData = () => {
       customer = new User(data[0].customers[0]);
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
-      // customer.setBookings(data[2].bookings)
-      // customer.calculateTotalSpent(data[1].rooms)
-      // customer.findCurrentAndPastBookings('2022/01/14')
     })
     .catch(err => console.log(err))
 }
