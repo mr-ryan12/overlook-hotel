@@ -7,6 +7,14 @@ class Hotel {
     this.filterTerm = '';
   }
 
+  convertTodaysDate() {
+    let todaysDate = new Date();
+    const timezoneOffset = todaysDate.getTimezoneOffset();
+
+    todaysDate = new Date(todaysDate.getTime() - (timezoneOffset * 60 * 1000));
+    return todaysDate.toISOString().split('T')[0].split('-').join('/');
+  }
+
   setAvailableRooms(date) {
     const bookedRooms = this.bookings.reduce((acc, booking) => {
       this.rooms.forEach(room => {
@@ -25,13 +33,16 @@ class Hotel {
   }
 
   checkAvailableRoomsByDate(date) {
-    const todaysDate = new Date().toISOString().split('T')[0].split('-').join('/');
+    const todaysDate = this.convertTodaysDate();
+    const message = 'So sorry, there are not any available rooms. Please adjust your search.';
+    let foundRooms;
 
     if (date < todaysDate) {
-      return 'So sorry, there are not any available rooms. Please adjust your search.';
+      return message;
     } else {
       this.setAvailableRooms(date);
-      return this.availableRooms;
+      foundRooms = this.availableRooms;
+      return foundRooms;
     }
   }
 
@@ -43,7 +54,7 @@ class Hotel {
     if (foundRooms.length === 0) {
       return 'So sorry, there are not any available rooms. Please adjust your search.';
     }
-
+    
     return foundRooms;
   }
 }
