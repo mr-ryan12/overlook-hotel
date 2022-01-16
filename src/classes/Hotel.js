@@ -34,6 +34,10 @@ class Hotel {
     return availableRooms;
   }
 
+  addBooking(booking) {
+    this.bookings.push(booking)
+  }
+
   checkAvailableRoomsByDate(date) {
     const todaysDate = this.convertTodaysDate();
     let foundRooms;

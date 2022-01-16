@@ -9,7 +9,7 @@ let customer;
 let hotel;
 
 const getAllData = () => {
-  Promise.all([customersData, roomsData, bookingsData])
+  return Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
       customer = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
@@ -18,6 +18,7 @@ const getAllData = () => {
     })
     .catch(err => console.log(err))
 }
+
 
 const greeting = document.getElementById('greeting');
 const roomTypesInput = document.getElementById('roomTypes');
@@ -47,6 +48,7 @@ const setCustomerData = (customer, rooms, bookings) => {
   customer.setBookings(bookings);
   customer.findCurrentAndPastBookings(todaysDate);
   
+  // create below into helper function - pass in customer
   const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
   const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
   const totalSpent = customer.calculateTotalSpent(rooms);
@@ -123,15 +125,18 @@ const createNewBooking = event => {
     date: bookingDate,
     roomNumber: roomNumber
   }
-  createBooking(newBookingData);
+  createBooking(newBookingData)
+  .then(data => {
+    const modifiedBooking = data.newBooking;
+    modifiedBooking.date = formatDates(modifiedBooking.date);
+    customer.currentBookings.push(modifiedBooking);
+    hotel.addBooking(modifiedBooking);
+    const customerCurrentBookings = customer.currentBookings;
+    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
+    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
+  })
+  .catch(error => console.log(error))
 }
-
-// const addEventListenersToBookNowButtons = () => {
-//   const allBookNowButtons = document.querySelectorAll('.book-now-button');
-//   allBookNowButtons.forEach(button => button.addEventListener('click', () => {
-//     domUpdates.displayConfirmBookingModal(confirmBookingModal);
-//   }))
-// }
 
 const addEventListenersToBookNowButtons = () => {
   const allBookNowButtons = document.querySelectorAll('.book-now-button');

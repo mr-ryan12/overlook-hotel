@@ -9,7 +9,7 @@ const createBooking = data => {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json'}
   })
-  .then(response => console.log(response))//checkForErrors(response))
+  .then(response => checkForErrors(response))
 }
 
 const checkForErrors = response => {
