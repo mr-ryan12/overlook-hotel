@@ -25,11 +25,6 @@ class Hotel {
       return acc;
     }, []);
 
-    // this.rooms.forEach(room => {
-    //   if (!bookedRooms.includes(room)) {
-    //     this.availableRooms.push(room);
-    //   }
-    // })
     const availableRooms = this.rooms.reduce((acc, room) => {
       if (!bookedRooms.includes(room)) {
         acc.push(room);
@@ -42,11 +37,7 @@ class Hotel {
   checkAvailableRoomsByDate(date) {
     const todaysDate = this.convertTodaysDate();
     let foundRooms;
-    // this.setAvailableRooms(date);
-    // if (date >= todaysDate) {
-    // this.setAvailableRooms(date);
-    // foundRooms = this.availableRooms;
-    // }
+
     if (date >= todaysDate) {
       foundRooms = this.availableRooms || [];
     }

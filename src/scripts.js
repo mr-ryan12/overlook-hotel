@@ -112,31 +112,6 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.addEventListener('load', getAllData);
 dashboardButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
