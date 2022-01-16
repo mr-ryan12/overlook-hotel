@@ -76,6 +76,10 @@ const domUpdates = {
   resetApologeticMessage(apologeticMessageContainer) {
     hide([apologeticMessageContainer]);
   },
+
+  clearAvailableRoomsCardsContainer(availableRoomsCardsContainer) {
+    availableRoomsCardsContainer.innerHTML = '';
+  }
 }
 
 export default domUpdates;

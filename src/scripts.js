@@ -78,16 +78,13 @@ const getAvailableRoomsWithInputs = () => {
   if (filterTerm !== '' && dateInput === '') {
     displayFilterResults(filteredRoomsByType);
     // resetInputs();
-  } else if(filterTerm === '' && dateInput !== '' && dateInput >= todaysDate) {
-    filteredRoomsByDate = hotel.setAvailableRooms(dateInput);
-    console.log(filteredRoomsByDate)
-    displayFilterResults(filteredRoomsByDate);
+  } else if(filterTerm === '' && dateInput !== '') {
+    dateInput < todaysDate ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : filteredRoomsByDate = hotel.setAvailableRooms(dateInput);
+    filteredRoomsByDate ? displayFilterResults(filteredRoomsByDate) : domUpdates.clearAvailableRoomsCardsContainer(availableRoomsCardsContainer);
     // resetInputs();
   } else {
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
-  console.log(dateInput)
-  console.log(filterTerm)
 }
 
 const displayFilterResults = filteredRoomsByInput => {
@@ -140,6 +137,7 @@ navBarTitleButton.addEventListener('click', () => {
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  resetInputs();
 });
 
 submitButton.addEventListener('click', getAvailableRoomsWithInputs)
