@@ -119,6 +119,7 @@ dashboardButton.addEventListener('click', () => {
 });
 navBarTitleButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.resetApologeticMessage(apologeticMessageContainer)
 });
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
