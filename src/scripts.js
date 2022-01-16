@@ -33,6 +33,7 @@ const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContain
 const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
 const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
+const confirmBookingModal = document.querySelector('.confirm-booking-modal');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -91,6 +92,7 @@ const displayFilterResults = filteredRoomsByInput => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRoomsByInput);
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   filteredRoomsByInput.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
+  addEventListenersToBookNowButtons();
 }
 
 const resetInputs = () => {
@@ -115,9 +117,10 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
 
 const addEventListenersToBookNowButtons = () => {
   const allBookNowButtons = document.querySelectorAll('.book-now-button');
-  allBookNowButtons.forEach(button => button.addEventListener('click', function() {return console.log(button)}))
+  allBookNowButtons.forEach(button => button.addEventListener('click', () => {
+    domUpdates.displayConfirmBookingModal(confirmBookingModal);
+  }))
 }
-
 
 window.addEventListener('load', getAllData);
 dashboardButton.addEventListener('click', () => {
@@ -133,6 +136,7 @@ availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   resetInputs();
   autofillCurrentDate();
+  addEventListenersToBookNowButtons();
 });
 
 submitButton.addEventListener('click', getAvailableRoomsWithInputs)

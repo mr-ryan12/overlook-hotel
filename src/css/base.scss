@@ -23,7 +23,7 @@
   @include top-left-zero();
   height: 8vh;
   margin: 0;
-  z-index: 9999;
+  // z-index: 0;
   color: $black;
 }
 
@@ -146,6 +146,19 @@ button {
   background-color: #d9b382;
   margin-top: 9vh;
   text-align: center;
+}
+
+.confirm-booking-modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: $one-hundred-percent;
+  height: $one-hundred-percent;
+  overflow: auto;
+  background-color: $background-modal-color;
+  display:flex;
+  justify-content: space-between;
 }
 
 .hidden {
