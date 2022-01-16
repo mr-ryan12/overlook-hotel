@@ -12,7 +12,7 @@ const getAllData = () => {
   Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
       customer = new User(data[0].customers[0]);
-      hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings)
+      hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
     })
