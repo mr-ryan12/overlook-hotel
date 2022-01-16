@@ -23,6 +23,7 @@ const domUpdates = {
 
   // Refactor the below two functions into one
   displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
+    pastVisitsCardsContainer.innerHTML = '';
     customerPastBookings = customerPastBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerPastBookings.forEach(booking => {
       pastVisitsCardsContainer.innerHTML += `
@@ -34,6 +35,7 @@ const domUpdates = {
   },
 
   displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings) {
+    currentVisitsCardsContainer.innerHTML = '';
     customerCurrentBookings = customerCurrentBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerCurrentBookings.forEach(booking => {
       currentVisitsCardsContainer.innerHTML += `
@@ -45,12 +47,13 @@ const domUpdates = {
   },
 
   displayAvailableRooms(availableRoomsCardsContainer, availableRooms) {
+    availableRoomsCardsContainer.innerHTML = '';
     availableRooms.forEach(room => {
       const splitRoomType = room.roomType.split(' ');
       let convertedType = [];
       splitRoomType.forEach(type => convertedType.push(type.charAt(0).toUpperCase() + type.slice(1)));
       availableRoomsCardsContainer.innerHTML += `
-      <section class="available-rooms-card">
+      <section class="available-rooms-card" id=${Date.now().toString()}>
         <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
         <section class="room-type-and-price-container">
           <h2 class="room-type">${convertedType.join(' ')}</h2>
@@ -62,7 +65,21 @@ const domUpdates = {
         </section>
       </section>`
     })
+    this.resetApologeticMessage(apologeticMessageContainer);
   },
+
+  displayApologeticMessage(apologeticMessageContainer) {
+    show([apologeticMessageContainer]);
+    apologeticMessageContainer.innerText = `So sorry, there are not any rooms available with that criteria. Please try again.`;
+  },
+
+  resetApologeticMessage(apologeticMessageContainer) {
+    hide([apologeticMessageContainer]);
+  },
+
+  clearAvailableRoomsCardsContainer(availableRoomsCardsContainer) {
+    availableRoomsCardsContainer.innerHTML = '';
+  }
 }
 
 export default domUpdates;
