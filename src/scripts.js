@@ -70,8 +70,6 @@ const getAvailableRoomsWithInputs = () => {
   let filteredRoomsByDate;
   let dateInput = customerDateInput.value.split('-').join('/');
   let filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
-
-  console.log(filteredRoomsByDate)
   
   const newBookings = hotel.bookings.filter(booking => booking.date === '2022/01/25')
   console.log(newBookings)
@@ -83,6 +81,7 @@ const getAvailableRoomsWithInputs = () => {
     filteredRoomsByDate ? displayFilterResults(filteredRoomsByDate) : domUpdates.clearAvailableRoomsCardsContainer(availableRoomsCardsContainer);
     // resetInputs();
   } else {
+    autofillCurrentDate();
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
 }
@@ -98,7 +97,10 @@ const resetInputs = () => {
   customerDateInput.value = '';
 }
 
-
+const autofillCurrentDate = () => {
+  const todaysDate = hotel.convertTodaysDate().split('/').join('-');
+  customerDateInput.value = todaysDate;
+}
 
 
 
@@ -138,6 +140,7 @@ availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   resetInputs();
+  autofillCurrentDate();
 });
 
 submitButton.addEventListener('click', getAvailableRoomsWithInputs)
