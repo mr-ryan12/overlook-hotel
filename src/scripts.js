@@ -65,21 +65,21 @@ const getAvailableRoomsWithoutInputs = () => {
 }
 
 const getAvailableRoomsWithInputs = () => {
+  let filteredRoomsByDate;
+  let filteredRoomsByType;
+  let dateInput = customerDateInput.value.split('-').join('/');
   const todaysDate = hotel.convertTodaysDate();
   const filterTerm = roomTypesInput.value;
-  let filteredRoomsByDate;
-  let dateInput = customerDateInput.value.split('-').join('/');
-  let filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
   
-  const newBookings = hotel.bookings.filter(booking => booking.date === '2022/01/25')
-  console.log(newBookings)
   if (filterTerm !== '' && dateInput === '') {
+    filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
+    autofillCurrentDate();
     displayFilterResults(filteredRoomsByType);
-    // resetInputs();
-  } else if(filterTerm === '' && dateInput !== '') {
+  } else if (filterTerm === '' && dateInput !== '') {
     dateInput < todaysDate ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : filteredRoomsByDate = hotel.setAvailableRooms(dateInput);
     filteredRoomsByDate ? displayFilterResults(filteredRoomsByDate) : domUpdates.clearAvailableRoomsCardsContainer(availableRoomsCardsContainer);
-    // resetInputs();
+  } else if (filterTerm !== '' && dateInput !== '') {
+    checkBothInputs(dateInput, todaysDate, filteredRoomsByType, filterTerm);
   } else {
     autofillCurrentDate();
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
@@ -102,7 +102,15 @@ const autofillCurrentDate = () => {
   customerDateInput.value = todaysDate;
 }
 
-
+const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm) => {
+  if (filterTerm !== '' && dateInput !== '' && dateInput < todaysDate) {
+    domUpdates.displayApologeticMessage(apologeticMessageContainer);
+    domUpdates.clearAvailableRoomsCardsContainer(availableRoomsCardsContainer);
+  } else if (filterTerm !== '' && dateInput !== '' && dateInput >= todaysDate) {
+    filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, dateInput);
+    displayFilterResults(filteredRoomsByType);
+  }
+}
 
 
 

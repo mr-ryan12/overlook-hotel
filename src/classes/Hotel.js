@@ -57,10 +57,6 @@ class Hotel {
   checkAvailableRoomsByType(term, date) {
     const availableRooms = this.setAvailableRooms(date);
     const foundRooms = availableRooms.filter(room => room.roomType === term);
-
-    // if (foundRooms.length === 0) {
-    //   return 'So sorry, there are not any available rooms. Please adjust your search.';
-    // }
     
     return foundRooms;
   }
