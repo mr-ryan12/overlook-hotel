@@ -25,31 +25,38 @@ class Hotel {
       return acc;
     }, []);
 
-    this.rooms.forEach(room => {
+    // this.rooms.forEach(room => {
+    //   if (!bookedRooms.includes(room)) {
+    //     this.availableRooms.push(room);
+    //   }
+    // })
+    const availableRooms = this.rooms.reduce((acc, room) => {
       if (!bookedRooms.includes(room)) {
-        this.availableRooms.push(room);
+        acc.push(room);
       }
-    })
+      return acc;
+    }, []);
+    return availableRooms;
   }
 
   checkAvailableRoomsByDate(date) {
     const todaysDate = this.convertTodaysDate();
-    const message = 'So sorry, there are not any available rooms. Please adjust your search.';
     let foundRooms;
-
-    if (date < todaysDate) {
-      return message;
-    } else {
-      this.setAvailableRooms(date);
-      foundRooms = this.availableRooms;
-      return foundRooms;
+    // this.setAvailableRooms(date);
+    // if (date >= todaysDate) {
+    // this.setAvailableRooms(date);
+    // foundRooms = this.availableRooms;
+    // }
+    if (date >= todaysDate) {
+      foundRooms = this.availableRooms || [];
     }
+
+    return foundRooms;
   }
 
   checkAvailableRoomsByType(term, date) {
-    // this.checkAvailableRoomsByDate(date);
-    
-    const foundRooms = this.availableRooms.filter(room => room.roomType === term);
+    const availableRooms = this.setAvailableRooms(date);
+    const foundRooms = availableRooms.filter(room => room.roomType === term);
 
     // if (foundRooms.length === 0) {
     //   return 'So sorry, there are not any available rooms. Please adjust your search.';

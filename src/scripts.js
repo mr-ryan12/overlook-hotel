@@ -60,26 +60,40 @@ const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
   hotel.setAvailableRooms(todaysDate);
 
-  const availableRooms = hotel.availableRooms;
+  const availableRooms = hotel.setAvailableRooms(todaysDate);
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
 }
 
 const getAvailableRoomsWithInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
   const filterTerm = roomTypesInput.value;
-  const dateInput = customerDateInput.value;
-  let filteredRooms = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
+  let filteredRoomsByDate;
+  let dateInput = customerDateInput.value.split('-').join('/');
+  let filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
 
+  console.log(filteredRoomsByDate)
+  
+  const newBookings = hotel.bookings.filter(booking => booking.date === '2022/01/25')
+  console.log(newBookings)
   if (filterTerm !== '' && dateInput === '') {
-    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRooms);
-    domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
-    console.log(filteredRooms.length)
-    filteredRooms.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
-    resetInputs();
+    displayFilterResults(filteredRoomsByType);
+    // resetInputs();
+  } else if(filterTerm === '' && dateInput !== '' && dateInput >= todaysDate) {
+    filteredRoomsByDate = hotel.setAvailableRooms(dateInput);
+    console.log(filteredRoomsByDate)
+    displayFilterResults(filteredRoomsByDate);
+    // resetInputs();
   } else {
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
-  // domUpdates.resetApologeticMessage(apologeticMessageContainer);
+  console.log(dateInput)
+  console.log(filterTerm)
+}
+
+const displayFilterResults = filteredRoomsByInput => {
+  domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRoomsByInput);
+  domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  filteredRoomsByInput.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
 }
 
 const resetInputs = () => {
@@ -124,7 +138,7 @@ navBarTitleButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 availableRoomsButton.addEventListener('click', () => {
-  domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.availableRooms)
+  domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
 });
 
