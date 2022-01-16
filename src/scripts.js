@@ -33,7 +33,7 @@ const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContain
 const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
 const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
-const confirmBookingModal = document.querySelector('.confirm-booking-modal');
+const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
 
 const formatDates = date => {
   const splitDate = date.split('/');
