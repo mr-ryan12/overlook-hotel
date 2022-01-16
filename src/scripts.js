@@ -42,14 +42,14 @@ const formatDates = date => {
 const setCustomerData = (customer, rooms, bookings) => {
   const todaysDate = hotel.convertTodaysDate();
   const customerFirstName = customer.name.split(' ')[0];
-
+  
   customer.setBookings(bookings);
   customer.findCurrentAndPastBookings(todaysDate);
-
+  
   const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
   const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
   const totalSpent = customer.calculateTotalSpent(rooms);
-
+  
   domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
   domUpdates.displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings);
   domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
@@ -59,9 +59,10 @@ const setCustomerData = (customer, rooms, bookings) => {
 const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
   hotel.setAvailableRooms(todaysDate);
-
+  
   const availableRooms = hotel.setAvailableRooms(todaysDate);
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
+  addEventListenersToBookNowButtons();
 }
 
 const getAvailableRoomsWithInputs = () => {
@@ -111,6 +112,12 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
     displayFilterResults(filteredRoomsByType);
   }
 }
+
+const addEventListenersToBookNowButtons = () => {
+  const allBookNowButtons = document.querySelectorAll('.book-now-button');
+  allBookNowButtons.forEach(button => button.addEventListener('click', function() {return console.log(button)}))
+}
+
 
 window.addEventListener('load', getAllData);
 dashboardButton.addEventListener('click', () => {
