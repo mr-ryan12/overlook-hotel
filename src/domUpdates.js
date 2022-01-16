@@ -53,7 +53,7 @@ const domUpdates = {
       let convertedType = [];
       splitRoomType.forEach(type => convertedType.push(type.charAt(0).toUpperCase() + type.slice(1)));
       availableRoomsCardsContainer.innerHTML += `
-      <section class="available-rooms-card">
+      <section class="available-rooms-card" id=${room.number}>
         <img class="available-rooms-image" src="./images/main-hotel-image.png" alt="minature picture of a hotel room with a bed and view">
         <section class="room-type-and-price-container">
           <h2 class="room-type">${convertedType.join(' ')}</h2>

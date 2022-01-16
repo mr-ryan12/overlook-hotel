@@ -1,6 +1,6 @@
 const getData = api => {
   return fetch(`http://localhost:3001/api/v1/${api}`)
-    .then(response => response.json());
+    .then(response => checkForErrors(response));
 }
 
 const createBooking = data => {
@@ -9,10 +9,10 @@ const createBooking = data => {
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json'}
   })
-  .then(response => throwError(response))
+  .then(response => console.log(response))//checkForErrors(response))
 }
 
-const throwError = response => {
+const checkForErrors = response => {
   if (response.ok) {
     return response.json();
   } else {
@@ -24,4 +24,4 @@ const customersData = getData('customers');
 const roomsData = getData('rooms');
 const bookingsData = getData('bookings');
 
-export {customersData, roomsData, bookingsData};
+export {customersData, roomsData, bookingsData, createBooking};

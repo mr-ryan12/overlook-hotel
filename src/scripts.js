@@ -3,7 +3,7 @@ import './images/main-hotel-image.png';
 import User from './classes/User';
 import Hotel from './classes/Hotel';
 import domUpdates from './domUpdates';
-import {customersData, roomsData, bookingsData} from './apiCalls';
+import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
 
 let customer;
 let hotel;
@@ -115,11 +115,27 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
   }
 }
 
+const createNewBooking = event => {
+  const roomNumber = Number(event.target.parentNode.parentNode.id);
+  const bookingDate = customerDateInput.value.split('-').join('/');
+  const newBookingData = {
+    userID: customer.id,
+    date: bookingDate,
+    roomNumber: roomNumber
+  }
+  createBooking(newBookingData);
+}
+
+// const addEventListenersToBookNowButtons = () => {
+//   const allBookNowButtons = document.querySelectorAll('.book-now-button');
+//   allBookNowButtons.forEach(button => button.addEventListener('click', () => {
+//     domUpdates.displayConfirmBookingModal(confirmBookingModal);
+//   }))
+// }
+
 const addEventListenersToBookNowButtons = () => {
   const allBookNowButtons = document.querySelectorAll('.book-now-button');
-  allBookNowButtons.forEach(button => button.addEventListener('click', () => {
-    domUpdates.displayConfirmBookingModal(confirmBookingModal);
-  }))
+  allBookNowButtons.forEach(button => button.addEventListener('click', createNewBooking));
 }
 
 window.addEventListener('load', getAllData);
