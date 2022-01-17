@@ -1,3 +1,5 @@
+import domUpdates from './domUpdates';
+
 const getData = api => {
   return fetch(`http://localhost:3001/api/v1/${api}`)
     .then(response => checkForErrors(response));
@@ -16,7 +18,7 @@ const getBookingsData = () => {
 }
 
 const createBooking = data => {
-  return fetch('http://localhost:3001/api/v1/bookings', {
+  return fetch('http://localhost:3001/api/v1/bookings!', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json'}
