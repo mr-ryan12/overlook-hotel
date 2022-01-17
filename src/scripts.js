@@ -137,13 +137,18 @@ const createNewBooking = event => {
     roomNumber: roomNumber,
     roomServiceCharges: []
   }
+  console.log(customer.currentBookings)
   createBooking(newBookingData)
   .then(data => {
     domUpdates.displayModal(confirmBookingModal)
-    const modifiedBooking = new Booking(data.newBooking)
-    customer.currentBookings.push(modifiedBooking);
-    customer.bookings.push(modifiedBooking);
-    hotel.addBooking(modifiedBooking);
+    const newCustomerCurrentBooking = new Booking(data.newBooking);
+    newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
+    console.log(newCustomerCurrentBooking)
+    const newHotelBooking = new Booking(data.newBooking);
+    console.log(newHotelBooking)
+    customer.currentBookings.push(newCustomerCurrentBooking);
+    customer.bookings.push(newCustomerCurrentBooking);
+    hotel.addBooking(newHotelBooking);
     const customerCurrentBookings = customer.currentBookings;
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
