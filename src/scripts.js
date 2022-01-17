@@ -21,10 +21,10 @@ const getAllData = () => {
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
     })
-    .catch(err => {
+    .catch(error => {
       bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
       domUpdates.displayModal();
-      console.log(err)
+      console.log(error)
     })
 }
 

@@ -9,6 +9,10 @@ const getCustomersData = () => {
   return getData('customers');
 }
 
+// const getCustomersData = customerId => {
+//   return getData(`customers/${customerId}`);
+// }
+
 const getRoomsData = () => {
   return getData('rooms');
 }
