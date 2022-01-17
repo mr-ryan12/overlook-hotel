@@ -30,13 +30,9 @@ const checkForErrors = response => {
   if (response.ok) {
     return response.json();
   } else {
+    domUpdates.displayModal();
     throw new Error('Something went wrong. Please try again.');
   }
 }
 
-// const customersData = getData('customers');
-// const roomsData = getData('rooms');
-// const bookingsData = getData('bookings');
-
-// export {customersData, roomsData, bookingsData, createBooking};
 export {getCustomersData, getRoomsData, getBookingsData, createBooking}

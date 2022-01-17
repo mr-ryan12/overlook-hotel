@@ -25,7 +25,11 @@ const getAllData = () => {
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
+      domUpdates.displayModal();
+      console.log(err)
+    })
 }
 
 
@@ -140,7 +144,7 @@ const createNewBooking = event => {
   }
   createBooking(newBookingData)
   .then(data => {
-    domUpdates.displayBookingModal(confirmBookingModal)
+    domUpdates.displayModal(confirmBookingModal)
     // const modifiedBooking = data.newBooking;
     // const modifiedBooking = new Booking(data.newBooking);
     // const modifiedBooking = {
@@ -170,7 +174,7 @@ const createNewBooking = event => {
   })
   .catch(error => {
     bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
-    domUpdates.displayBookingModal(confirmBookingModal);
+    domUpdates.displayModal(confirmBookingModal);
     console.log(error)
   })
 }
@@ -198,5 +202,5 @@ availableRoomsButton.addEventListener('click', () => {
 });
 submitButton.addEventListener('click', getAvailableRoomsWithInputs);
 closeModalButton.addEventListener('click', () => {
-  domUpdates.closeBookingModal(confirmBookingModal);
+  domUpdates.closeModal(confirmBookingModal);
 })

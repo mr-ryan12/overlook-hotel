@@ -1,6 +1,8 @@
+const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
+
+
 const show = elements => elements.forEach(element => element.classList.remove('hidden'));
 const hide = elements => elements.forEach(element => element.classList.add('hidden'));
-
 
 const domUpdates = {
   displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
@@ -81,11 +83,11 @@ const domUpdates = {
     availableRoomsCardsContainer.innerHTML = '';
   },
 
-  displayBookingModal(confirmBookingModal) {
+  displayModal() {
     show([confirmBookingModal]);
   }, 
 
-  closeBookingModal(confirmBookingModal) {
+  closeModal() {
     hide([confirmBookingModal]);
   },
 }
