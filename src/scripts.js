@@ -4,9 +4,7 @@ import User from './classes/User';
 import Hotel from './classes/Hotel';
 import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-// import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
 import {getCustomersData, getRoomsData, getBookingsData, createBooking} from './apiCalls';
-
 
 let customer;
 let hotel;
