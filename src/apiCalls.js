@@ -5,21 +5,9 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
-const getCustomersData = () => {
-  return getData('customers');
-}
-
-// const getCustomersData = customerId => {
-//   return getData(`customers/${customerId}`);
-// }
-
-const getRoomsData = () => {
-  return getData('rooms');
-}
-
-const getBookingsData = () => {
-  return getData('bookings')
-}
+const customersData = getData('customers');
+const roomsData = getData('rooms');
+const bookingsData = getData('bookings');
 
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
@@ -39,4 +27,4 @@ const checkForErrors = response => {
   }
 }
 
-export {getCustomersData, getRoomsData, getBookingsData, createBooking}
+export {customersData, roomsData, bookingsData, createBooking}

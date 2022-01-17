@@ -4,7 +4,7 @@ import User from './classes/User';
 import Hotel from './classes/Hotel';
 import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-import {getCustomersData, getRoomsData, getBookingsData, createBooking} from './apiCalls';
+import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
 
 let customer;
 let hotel;
@@ -12,7 +12,7 @@ let bookings;
 let rooms;
 
 const getAllData = () => {
-  Promise.all([getCustomersData(), getRoomsData(), getBookingsData()])
+  Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
       customer = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
@@ -135,23 +135,18 @@ const createNewBooking = event => {
     userID: customer.id,
     date: bookingDate,
     roomNumber: roomNumber,
-    roomServiceCharges: []
   }
-  console.log(customer.currentBookings)
   createBooking(newBookingData)
   .then(data => {
-    domUpdates.displayModal(confirmBookingModal)
     const newCustomerCurrentBooking = new Booking(data.newBooking);
-    newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
-    console.log(newCustomerCurrentBooking)
     const newHotelBooking = new Booking(data.newBooking);
-    console.log(newHotelBooking)
+    domUpdates.displayModal(confirmBookingModal);
+    newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
     customer.currentBookings.push(newCustomerCurrentBooking);
     customer.bookings.push(newCustomerCurrentBooking);
     hotel.addBooking(newHotelBooking);
-    const customerCurrentBookings = customer.currentBookings;
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
-    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
+    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customer.currentBookings);
     addEventListenersToBookNowButtons();
   })
   .catch(error => {
