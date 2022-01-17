@@ -140,7 +140,7 @@ const createNewBooking = event => {
   }
   createBooking(newBookingData)
   .then(data => {
-    domUpdates.displaySuccessfulBookingModal(confirmBookingModal)
+    domUpdates.displayBookingModal(confirmBookingModal)
     // const modifiedBooking = data.newBooking;
     // const modifiedBooking = new Booking(data.newBooking);
     // const modifiedBooking = {
@@ -170,7 +170,7 @@ const createNewBooking = event => {
   })
   .catch(error => {
     bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
-    domUpdates.displaySuccessfulBookingModal(confirmBookingModal);
+    domUpdates.displayBookingModal(confirmBookingModal);
     console.log(error)
   })
 }
@@ -198,5 +198,5 @@ availableRoomsButton.addEventListener('click', () => {
 });
 submitButton.addEventListener('click', getAvailableRoomsWithInputs);
 closeModalButton.addEventListener('click', () => {
-  domUpdates.closeSuccessfulBookingModal(confirmBookingModal);
+  domUpdates.closeBookingModal(confirmBookingModal);
 })

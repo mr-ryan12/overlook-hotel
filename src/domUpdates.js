@@ -81,11 +81,11 @@ const domUpdates = {
     availableRoomsCardsContainer.innerHTML = '';
   },
 
-  displaySuccessfulBookingModal(confirmBookingModal) {
+  displayBookingModal(confirmBookingModal) {
     show([confirmBookingModal]);
   }, 
 
-  closeSuccessfulBookingModal(confirmBookingModal) {
+  closeBookingModal(confirmBookingModal) {
     hide([confirmBookingModal]);
   },
 }
