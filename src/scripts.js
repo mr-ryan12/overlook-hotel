@@ -50,6 +50,7 @@ const loginButton = document.getElementById('loginButton');
 const usernameInput = document.getElementById('name');
 const passwordInput = document.getElementById('password');
 const invalidLoginMessage = document.getElementById('loginErrorMessage');
+const showPasswordCheckbox = document.getElementById('showPassword');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -160,6 +161,14 @@ const createNewBooking = event => {
   })
 }
 
+const showPassword = () => {
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+  } else {
+    passwordInput.type = 'password';
+  }
+}
+
 const displaySuccessfulLoginView = event => {
   event.preventDefault();
   const usernameInputValue = usernameInput.value;
@@ -182,6 +191,7 @@ const addEventListenersToBookNowButtons = () => {
 
 window.addEventListener('load', getAllData);
 window.addEventListener('load', domUpdates.displayLoginView);
+showPasswordCheckbox.addEventListener('click', showPassword);
 loginButton.addEventListener('click', displaySuccessfulLoginView);
 dashboardButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
