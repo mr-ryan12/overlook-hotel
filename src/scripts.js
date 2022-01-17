@@ -4,22 +4,22 @@ import User from './classes/User';
 import Hotel from './classes/Hotel';
 import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
+import {customersData, roomsData, bookingsData, createBooking, getData} from './apiCalls';
 
-let customer;
+let customers;
 let hotel;
 let bookings;
 let rooms;
+let individualCustomer;
 
 const getAllData = () => {
   Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
-      customer = new User(data[0].customers[0]);
+      customers = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       bookings = data[2].bookings;
       rooms = data[1].rooms;
-      setCustomerData(customer, data[1].rooms, data[2].bookings);
-      getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
+      getAvailableRoomsWithoutInputs();
     })
     .catch(error => {
       bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
@@ -137,7 +137,7 @@ const createNewBooking = event => {
   const roomNumber = Number(event.target.parentNode.parentNode.id);
   const bookingDate = customerDateInput.value.split('-').join('/');
   const newBookingData = {
-    userID: customer.id,
+    userID: individualCustomer.id,
     date: bookingDate,
     roomNumber: roomNumber,
   }
@@ -147,11 +147,11 @@ const createNewBooking = event => {
     const newHotelBooking = new Booking(data.newBooking);
     domUpdates.displayModal(confirmBookingModal);
     newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
-    customer.currentBookings.push(newCustomerCurrentBooking);
-    customer.bookings.push(newCustomerCurrentBooking);
+    individualCustomer.currentBookings.push(newCustomerCurrentBooking);
+    individualCustomer.bookings.push(newCustomerCurrentBooking);
     hotel.addBooking(newHotelBooking);
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
-    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customer.currentBookings);
+    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
   })
   .catch(error => {
@@ -177,11 +177,20 @@ const displaySuccessfulLoginView = event => {
   const foundGuest = hotel.guests.find(guest => guest.id === usernameId);
 
   if (foundGuest && passwordInputValue === 'overlook2021') {
-    // getCustomersData(usernameId.toString())
+    fetchIndividualCustomer(usernameId);
     domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   } else {
     domUpdates.displayInvalidLoginMessage(invalidLoginMessage);
   }
+}
+
+const fetchIndividualCustomer = (id) => {
+  getData(`customers/${id}`)
+    .then(data => {
+      individualCustomer = new User(data);
+      setCustomerData(individualCustomer, rooms, bookings);
+      getAvailableRoomsWithoutInputs();
+    });
 }
 
 const addEventListenersToBookNowButtons = () => {

@@ -5,7 +5,7 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
-const customersData = getData('customers');
+const customersData = getData('customers')
 const roomsData = getData('rooms');
 const bookingsData = getData('bookings');
 
@@ -27,4 +27,4 @@ const checkForErrors = response => {
   }
 }
 
-export {customersData, roomsData, bookingsData, createBooking}
+export {customersData, roomsData, bookingsData, createBooking, getData}
