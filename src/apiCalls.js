@@ -3,6 +3,18 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
+const getCustomersData = () => {
+  return getData('customers');
+}
+
+const getRoomsData = () => {
+  return getData('rooms');
+}
+
+const getBookingsData = () => {
+  return getData('bookings')
+}
+
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
     method: 'POST',
@@ -20,8 +32,9 @@ const checkForErrors = response => {
   }
 }
 
-const customersData = getData('customers');
-const roomsData = getData('rooms');
-const bookingsData = getData('bookings');
+// const customersData = getData('customers');
+// const roomsData = getData('rooms');
+// const bookingsData = getData('bookings');
 
-export {customersData, roomsData, bookingsData, createBooking};
+// export {customersData, roomsData, bookingsData, createBooking};
+export {getCustomersData, getRoomsData, getBookingsData, createBooking}

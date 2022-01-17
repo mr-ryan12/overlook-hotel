@@ -55,6 +55,10 @@ class Hotel {
     
     return foundRooms;
   }
+
+  removeRoom() {
+    
+  }
 }
 
 export default Hotel;

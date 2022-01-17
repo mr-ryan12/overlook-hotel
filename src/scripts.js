@@ -2,15 +2,20 @@ import './css/base.scss';
 import './images/main-hotel-image.png';
 import User from './classes/User';
 import Hotel from './classes/Hotel';
+import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
+// import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
+import {getCustomersData, getRoomsData, getBookingsData, createBooking} from './apiCalls';
+
 
 let customer;
 let hotel;
 
 const getAllData = () => {
-  return Promise.all([customersData, roomsData, bookingsData])
+  // return Promise.all([customersData, roomsData, bookingsData])
+  Promise.all([getCustomersData(), getRoomsData(), getBookingsData()])
     .then(data => {
+      console.log(data)
       customer = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       setCustomerData(customer, data[1].rooms, data[2].bookings);
@@ -120,20 +125,38 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
 const createNewBooking = event => {
   const roomNumber = Number(event.target.parentNode.parentNode.id);
   const bookingDate = customerDateInput.value.split('-').join('/');
+  console.log(bookingDate)
   const newBookingData = {
     userID: customer.id,
     date: bookingDate,
-    roomNumber: roomNumber
+    roomNumber: roomNumber,
+    roomServiceCharges: []
   }
   createBooking(newBookingData)
   .then(data => {
-    const modifiedBooking = data.newBooking;
-    modifiedBooking.date = formatDates(modifiedBooking.date);
+    // const modifiedBooking = data.newBooking;
+    // const modifiedBooking = new Booking(data.newBooking);
+    const modifiedBooking = {
+      id: data.newBooking.id,
+      userID: data.newBooking.userID,
+      date: data.newBooking.date,
+      roomNumber: data.newBooking.roomNumber,
+      roomServiceCharges: []
+    }
+    console.log(modifiedBooking)
+    // modifiedBooking.date = formatDates(modifiedBooking.date);
     customer.currentBookings.push(modifiedBooking);
+    customer.bookings.push(modifiedBooking);
     hotel.addBooking(modifiedBooking);
+    // console.log(hotel.bookings)
+    console.log(hotel.setAvailableRooms(bookingDate));
     const customerCurrentBookings = customer.currentBookings;
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
-    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
+    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
+    addEventListenersToBookNowButtons();
+    // hotel.setAvailableRooms(bookingDate)
+    // console.log(data)
+    console.log(hotel.bookings)
   })
   .catch(error => console.log(error))
 }
