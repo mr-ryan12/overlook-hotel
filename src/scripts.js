@@ -143,15 +143,17 @@ const createNewBooking = event => {
   }
   createBooking(newBookingData)
   .then(data => {
+    const customerFirstName = individualCustomer.name.split(' ')[0];
+    const totalSpent = individualCustomer.calculateTotalSpent(rooms);
     const newCustomerCurrentBooking = new Booking(data.newBooking);
     const newHotelBooking = new Booking(data.newBooking);
+    
     domUpdates.displayModal(confirmBookingModal);
     newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
     individualCustomer.currentBookings.push(newCustomerCurrentBooking);
     individualCustomer.bookings.push(newCustomerCurrentBooking);
     hotel.addBooking(newHotelBooking);
-    // individualCustomer.calculateTotalSpent(rooms);
-    domUpdates.displayWelcomeMessage(greeting, individualCustomer.calculateTotalSpent(rooms), individualCustomer.name.split(' ')[0]);
+    domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
