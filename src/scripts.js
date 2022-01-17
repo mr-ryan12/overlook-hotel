@@ -46,6 +46,10 @@ const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCards
 const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
 const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
 const bookingMessage = document.getElementById('bookingMessage');
+const loginButton = document.getElementById('loginButton');
+const usernameInput = document.getElementById('name');
+const passwordInput = document.getElementById('password');
+const invalidLoginMessage = document.getElementById('loginErrorMessage');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -156,12 +160,29 @@ const createNewBooking = event => {
   })
 }
 
+const displaySuccessfulLoginView = event => {
+  event.preventDefault();
+  const usernameInputValue = usernameInput.value;
+  const usernameId = Number(usernameInputValue.split('r')[1]);
+  const passwordInputValue = passwordInput.value;
+  const foundGuest = hotel.guests.find(guest => guest.id === usernameId);
+
+  if (foundGuest && passwordInputValue === 'overlook2021') {
+    // getCustomersData(usernameId.toString())
+    domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  } else {
+    domUpdates.displayInvalidLoginMessage(invalidLoginMessage);
+  }
+}
+
 const addEventListenersToBookNowButtons = () => {
   const allBookNowButtons = document.querySelectorAll('.book-now-button');
   allBookNowButtons.forEach(button => button.addEventListener('click', createNewBooking));
 }
 
 window.addEventListener('load', getAllData);
+window.addEventListener('load', domUpdates.displayLoginView);
+loginButton.addEventListener('click', displaySuccessfulLoginView);
 dashboardButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   domUpdates.resetApologeticMessage(apologeticMessageContainer);

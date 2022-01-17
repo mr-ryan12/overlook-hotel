@@ -1,5 +1,15 @@
 const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
-
+const greeting = document.getElementById('greeting');
+const dashboardButton = document.getElementById('dashboardButton');
+const availableRoomsButton = document.getElementById('availableRoomsButton');
+const roomTypesInput = document.getElementById('roomTypes');
+const roomTypesLabel = document.getElementById('roomTypesLabel');
+const bookingDateLabel = document.querySelector('.search-for-booking-by-date');
+const customerDateInput = document.getElementById('searchRoomsByDate');
+const submitButton = document.getElementById('submitButton');
+const pastVisitsContainer = document.getElementById('pastVisitsContainer');
+const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
+const loginViewContainer = document.getElementById('loginViewContainer');
 
 const show = elements => elements.forEach(element => element.classList.remove('hidden'));
 const hide = elements => elements.forEach(element => element.classList.add('hidden'));
@@ -90,6 +100,23 @@ const domUpdates = {
   closeModal() {
     hide([confirmBookingModal]);
   },
+
+  displayLoginView() {
+    hide([greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer])
+  },
+  
+  displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
+    show([greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer]);
+    hide([loginViewContainer]);
+  },
+  
+  displayInvalidLoginMessage(invalidLoginMessage) {
+    show([invalidLoginMessage]);
+  },
+  
+  hideInvalidLoginMessage(invalidLoginMessage) {
+    hide([invalidLoginMessage]);
+  }
 }
 
 export default domUpdates;
