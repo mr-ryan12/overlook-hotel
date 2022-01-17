@@ -2,24 +2,35 @@ import './css/base.scss';
 import './images/main-hotel-image.png';
 import User from './classes/User';
 import Hotel from './classes/Hotel';
+import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-import {customersData, roomsData, bookingsData} from './apiCalls';
+import {customersData, roomsData, bookingsData, createBooking} from './apiCalls';
 
 let customer;
 let hotel;
+let bookings;
+let rooms;
 
 const getAllData = () => {
   Promise.all([customersData, roomsData, bookingsData])
     .then(data => {
       customer = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
+      bookings = data[2].bookings;
+      rooms = data[1].rooms;
       setCustomerData(customer, data[1].rooms, data[2].bookings);
       getAvailableRoomsWithoutInputs(data[0].customers, data[1].rooms, data[2].bookings);
     })
-    .catch(err => console.log(err))
+    .catch(error => {
+      bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
+      domUpdates.displayModal();
+      console.log(error)
+    })
 }
 
+
 const greeting = document.getElementById('greeting');
+const closeModalButton = document.getElementById('closeModalButton');
 const roomTypesInput = document.getElementById('roomTypes');
 const submitButton = document.getElementById('submitButton');
 const dashboardButton = document.getElementById('dashboardButton');
@@ -33,6 +44,8 @@ const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContain
 const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
 const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
+const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
+const bookingMessage = document.getElementById('bookingMessage');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -42,14 +55,15 @@ const formatDates = date => {
 const setCustomerData = (customer, rooms, bookings) => {
   const todaysDate = hotel.convertTodaysDate();
   const customerFirstName = customer.name.split(' ')[0];
-
+  
   customer.setBookings(bookings);
   customer.findCurrentAndPastBookings(todaysDate);
-
+  
+  // create below into helper function - pass in customer
   const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
   const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
   const totalSpent = customer.calculateTotalSpent(rooms);
-
+  
   domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
   domUpdates.displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings);
   domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
@@ -59,9 +73,10 @@ const setCustomerData = (customer, rooms, bookings) => {
 const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
   hotel.setAvailableRooms(todaysDate);
-
+  
   const availableRooms = hotel.setAvailableRooms(todaysDate);
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
+  addEventListenersToBookNowButtons();
 }
 
 const getAvailableRoomsWithInputs = () => {
@@ -90,6 +105,7 @@ const displayFilterResults = filteredRoomsByInput => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRoomsByInput);
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   filteredRoomsByInput.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
+  addEventListenersToBookNowButtons();
 }
 
 const resetInputs = () => {
@@ -112,6 +128,39 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
   }
 }
 
+const createNewBooking = event => {
+  const roomNumber = Number(event.target.parentNode.parentNode.id);
+  const bookingDate = customerDateInput.value.split('-').join('/');
+  const newBookingData = {
+    userID: customer.id,
+    date: bookingDate,
+    roomNumber: roomNumber,
+  }
+  createBooking(newBookingData)
+  .then(data => {
+    const newCustomerCurrentBooking = new Booking(data.newBooking);
+    const newHotelBooking = new Booking(data.newBooking);
+    domUpdates.displayModal(confirmBookingModal);
+    newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
+    customer.currentBookings.push(newCustomerCurrentBooking);
+    customer.bookings.push(newCustomerCurrentBooking);
+    hotel.addBooking(newHotelBooking);
+    domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
+    domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customer.currentBookings);
+    addEventListenersToBookNowButtons();
+  })
+  .catch(error => {
+    bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
+    domUpdates.displayModal(confirmBookingModal);
+    console.log(error)
+  })
+}
+
+const addEventListenersToBookNowButtons = () => {
+  const allBookNowButtons = document.querySelectorAll('.book-now-button');
+  allBookNowButtons.forEach(button => button.addEventListener('click', createNewBooking));
+}
+
 window.addEventListener('load', getAllData);
 dashboardButton.addEventListener('click', () => {
   domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
@@ -126,6 +175,9 @@ availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   resetInputs();
   autofillCurrentDate();
+  addEventListenersToBookNowButtons();
 });
-
-submitButton.addEventListener('click', getAvailableRoomsWithInputs)
+submitButton.addEventListener('click', getAvailableRoomsWithInputs);
+closeModalButton.addEventListener('click', () => {
+  domUpdates.closeModal(confirmBookingModal);
+})

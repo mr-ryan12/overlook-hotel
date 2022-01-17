@@ -23,7 +23,6 @@
   @include top-left-zero();
   height: 8vh;
   margin: 0;
-  z-index: 9999;
   color: $black;
 }
 
@@ -119,12 +118,19 @@
   font-size: $one-hundred-percent;
 }
 
-.book-now-button {
+.book-now-button,
+.confirm-button,
+.cancel-button,
+.close-modal-button {
   margin-bottom: 1.5vh;
   border-radius: 8px;
   border: none;
   background-color: #a8772d;
   height: 3vh;
+}
+
+.cancel-button {
+  background-color: $light-grey;
 }
 
 button {
@@ -146,6 +152,31 @@ button {
   background-color: #d9b382;
   margin-top: 9vh;
   text-align: center;
+}
+
+.confirm-booking-modal-container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: $one-hundred-percent;
+  height: $one-hundred-percent;
+  overflow: auto;
+  background-color: $background-modal-color;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-booking-modal {
+  display: block;
+  height: 40%;
+  width: 40%;
+  background-color: $white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 131px;
+  font-size: 20px;
 }
 
 .hidden {

@@ -14,7 +14,7 @@
     <section class="nav-bar-button-container">
       <button class="nav-dashboard-button" id="dashboardButton">Dashboard</button>
       <button class="available-rooms-button" id="availableRoomsButton">Available Rooms</button>
-      <label for="roomTypes">Room Types:</label>
+      <label for="roomTypes" id="roomTypesLabel">Room Types:</label>
       <select name="room-type" id="roomTypes">
         <option value="">--Please choose an option--</option>
         <option value="residential suite">Residential Suite</option>
@@ -48,6 +48,12 @@
         </section>
         <section class="available-rooms-cards-container" id="availableRoomsCardsContainer">
         </section>
+      </section>
+    </section>
+    <section class="confirm-booking-modal-container hidden" id="confirmBookingModal">
+      <section class="confirm-booking-modal">
+        <p class="booking-message" id="bookingMessage">Success! Your room is booked!</p>
+        <button class="close-modal-button" id="closeModalButton">Close</button>
       </section>
     </section>
   </main>

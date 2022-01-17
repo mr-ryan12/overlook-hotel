@@ -34,6 +34,10 @@ class Hotel {
     return availableRooms;
   }
 
+  addBooking(booking) {
+    this.bookings.push(booking)
+  }
+
   checkAvailableRoomsByDate(date) {
     const todaysDate = this.convertTodaysDate();
     let foundRooms;
@@ -50,6 +54,10 @@ class Hotel {
     const foundRooms = availableRooms.filter(room => room.roomType === term);
     
     return foundRooms;
+  }
+
+  removeRoom() {
+    
   }
 }
 
