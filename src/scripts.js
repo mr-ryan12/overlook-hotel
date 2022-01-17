@@ -150,6 +150,8 @@ const createNewBooking = event => {
     individualCustomer.currentBookings.push(newCustomerCurrentBooking);
     individualCustomer.bookings.push(newCustomerCurrentBooking);
     hotel.addBooking(newHotelBooking);
+    // individualCustomer.calculateTotalSpent(rooms);
+    domUpdates.displayWelcomeMessage(greeting, individualCustomer.calculateTotalSpent(rooms), individualCustomer.name.split(' ')[0]);
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
