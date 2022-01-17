@@ -12,10 +12,8 @@ let bookings;
 let rooms;
 
 const getAllData = () => {
-  // return Promise.all([customersData, roomsData, bookingsData])
   Promise.all([getCustomersData(), getRoomsData(), getBookingsData()])
     .then(data => {
-      console.log(data)
       customer = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       bookings = data[2].bookings;
@@ -133,7 +131,6 @@ const checkBothInputs = (dateInput, todaysDate, filteredRoomsByType, filterTerm)
 const createNewBooking = event => {
   const roomNumber = Number(event.target.parentNode.parentNode.id);
   const bookingDate = customerDateInput.value.split('-').join('/');
-  // console.log(bookingDate)
   const newBookingData = {
     userID: customer.id,
     date: bookingDate,
@@ -143,32 +140,14 @@ const createNewBooking = event => {
   createBooking(newBookingData)
   .then(data => {
     domUpdates.displayModal(confirmBookingModal)
-    // const modifiedBooking = data.newBooking;
-    // const modifiedBooking = new Booking(data.newBooking);
-    // const modifiedBooking = {
-    //   id: data.newBooking.id,
-    //   userID: data.newBooking.userID,
-    //   date: data.newBooking.date,
-    //   roomNumber: data.newBooking.roomNumber,
-    //   roomServiceCharges: []
-    // }
     const modifiedBooking = new Booking(data.newBooking)
-    console.log(modifiedBooking)
-    // modifiedBooking.date = formatDates(modifiedBooking.date);
     customer.currentBookings.push(modifiedBooking);
     customer.bookings.push(modifiedBooking);
     hotel.addBooking(modifiedBooking);
-    // console.log(hotel.bookings)
-    // console.log(hotel.setAvailableRooms(bookingDate));
     const customerCurrentBookings = customer.currentBookings;
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
-    console.log(hotel.setAvailableRooms(bookingDate))
-    // setCustomerData(customer, hotel.setAvailableRooms(bookingDate), customerCurrentBookings);
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, customerCurrentBookings);
     addEventListenersToBookNowButtons();
-    // hotel.setAvailableRooms(bookingDate)
-    // console.log(data)
-    // console.log(hotel.bookings)
   })
   .catch(error => {
     bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
