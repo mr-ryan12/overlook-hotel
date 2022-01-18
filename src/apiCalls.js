@@ -5,7 +5,6 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
-
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
     method: 'POST',

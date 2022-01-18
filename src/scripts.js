@@ -27,7 +27,6 @@ const getAllData = () => {
     })
 }
 
-
 const greeting = document.getElementById('greeting');
 const closeModalButton = document.getElementById('closeModalButton');
 const roomTypesInput = document.getElementById('roomTypes');
@@ -65,9 +64,9 @@ const setCustomerData = (customer, rooms, bookings) => {
   customer.findCurrentAndPastBookings(todaysDate);
   
   // create below into helper function - pass in customer
+  const totalSpent = customer.calculateTotalSpent(rooms);
   const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
   const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
-  const totalSpent = customer.calculateTotalSpent(rooms);
   
   domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
   domUpdates.displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings);
@@ -77,6 +76,7 @@ const setCustomerData = (customer, rooms, bookings) => {
 
 const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
+  // is this necessary? line 82 has the same thing
   hotel.setAvailableRooms(todaysDate);
   
   const availableRooms = hotel.setAvailableRooms(todaysDate);
