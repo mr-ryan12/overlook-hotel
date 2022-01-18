@@ -3,7 +3,7 @@ const expect = chai.expect;
 import users from './sample-test-data/user-test-data';
 import bookings from './sample-test-data/bookings-test-data';
 import rooms from './sample-test-data/rooms-test-data';
-import User from '../src/classes/User'
+import User from '../src/classes/User';
 
 
 
@@ -27,8 +27,18 @@ describe('User', () => {
     expect(user).to.be.an.instanceof(User);
   });
 
+  it('should have a default id if no id given', () => {
+    const user1 = new User({id: '', name: 'Guest'});
+    expect(user1.id).to.equal(0);
+  });
+
   it('should have an id', () => {
     expect(user.id).to.equal(9);
+  });
+
+  it('should have a default name if none given', () => {
+    const user1 = new User({id: 0, name: ''});
+    expect(user1.name).to.equal('Guest');
   });
 
   it('should have a name', () => {
@@ -42,7 +52,6 @@ describe('User', () => {
 
   it('should have bookings', () => {
     expect(user.bookings.length).to.equal(0);
-
     user.setBookings(bookingData);
     expect(user.bookings.length).to.equal(3);
   });
@@ -56,11 +65,26 @@ describe('User', () => {
 
     expect(user.addBooking).to.be.a('function');
     expect(user.bookings.length).to.equal(4);
+  });
+
+  it('should have the correct booking id', () => {
+    user.setBookings(bookingData);
+    user.addBooking(booking1);
+
     expect(user.bookings[0].id).to.equal('5fwrgu4i7k55hl6sz');
-    expect(user.bookings[0].userID).to.equal(9);
-    expect(user.bookings[0].date).to.equal('2022/04/22');
-    expect(user.bookings[0].roomNumber).to.equal(15);
     expect(user.bookings[0].roomServiceCharges).to.deep.equal([]);
+  });
+
+  it('should have the correct booking date', () => {
+    user.setBookings(bookingData);
+    user.addBooking(booking1);
+    expect(user.bookings[0].date).to.equal('2022/04/22');
+  });
+
+  it('should have the correct booking room number', () => {
+    user.setBookings(bookingData);
+    user.addBooking(booking1);
+    expect(user.bookings[0].roomNumber).to.equal(15);
   });
 
   it('should have a default amount spent', () => {
