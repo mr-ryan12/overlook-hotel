@@ -189,9 +189,6 @@ button {
   height: 50%;
   width: 40%;
   background-color: $white;
-  // text-align: center;
-  // vertical-align: middle;
-  // line-height: 131px;
 }
 
 .login-form-inputs {
@@ -212,6 +209,10 @@ button {
 
 .login-error-message {
   margin: 0 0 7vh 0;
+}
+
+.empty-available-rooms-contianer {
+  text-align: center;
 }
 
 .hidden {

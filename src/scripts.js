@@ -50,6 +50,7 @@ const usernameInput = document.getElementById('name');
 const passwordInput = document.getElementById('password');
 const invalidLoginMessage = document.getElementById('loginErrorMessage');
 const showPasswordCheckbox = document.getElementById('showPassword');
+const emptyAvailableRoomsContainer = document.getElementById('emptyAvailableRoomsContainer');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -103,6 +104,8 @@ const getAvailableRoomsWithInputs = () => {
     autofillCurrentDate();
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
+  checkAvailableRoomsContainer();
+  roomTypesInput.value = '';
 }
 
 const displayFilterResults = filteredRoomsByInput => {
@@ -157,7 +160,8 @@ const createNewBooking = event => {
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
     console.log(hotel.setAvailableRooms(bookingDate))
-    //hotel.setAvailableRooms(bookingDate).length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : null;
+    console.log(availableRoomsCardsContainer.childNodes.length)
+    checkAvailableRoomsContainer();
   })
   .catch(error => {
     bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
@@ -194,6 +198,10 @@ const displaySuccessfulLoginView = event => {
   }
 }
 
+const checkAvailableRoomsContainer = () => {
+  availableRoomsCardsContainer.childNodes.length === 0 ? domUpdates.displayNoMoreRoomsMessage(emptyAvailableRoomsContainer) : domUpdates.hideNoMoreRoomsMessage(emptyAvailableRoomsContainer);
+}
+
 const addEventListenersToBookNowButtons = () => {
   const allBookNowButtons = document.querySelectorAll('.book-now-button');
   allBookNowButtons.forEach(button => button.addEventListener('click', createNewBooking));
@@ -212,6 +220,7 @@ navBarTitleButton.addEventListener('click', () => {
   domUpdates.resetApologeticMessage(apologeticMessageContainer)
 });
 availableRoomsButton.addEventListener('click', () => {
+  checkAvailableRoomsContainer();
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   resetInputs();

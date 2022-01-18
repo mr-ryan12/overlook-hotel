@@ -116,6 +116,14 @@ const domUpdates = {
   
   hideInvalidLoginMessage(invalidLoginMessage) {
     hide([invalidLoginMessage]);
+  },
+
+  displayNoMoreRoomsMessage(emptyAvailableRoomsContainer) {
+    show([emptyAvailableRoomsContainer]);
+  },
+
+  hideNoMoreRoomsMessage(emptyAvailableRoomsContainer) {
+    hide([emptyAvailableRoomsContainer]);
   }
 }
 
