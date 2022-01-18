@@ -200,12 +200,6 @@ const displaySuccessfulLoginView = event => {
   }
 }
 
-const updateBookingDateMessage = bookingForDateMessage => {
-  const bookingDate = customerDateInput.value.split('-').join('/');
-  console.log(bookingDate)
-  domUpdates.updateBookingForDateMessage(bookingForDateMessage, bookingDate);
-}
-
 const checkAvailableRoomsContainer = () => {
   availableRoomsCardsContainer.childNodes.length === 0 ? domUpdates.displayNoMoreRoomsMessage(emptyAvailableRoomsContainer) : domUpdates.hideNoMoreRoomsMessage(emptyAvailableRoomsContainer);
 }
