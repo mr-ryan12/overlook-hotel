@@ -145,22 +145,22 @@ const createNewBooking = event => {
   }
   createBooking(newBookingData)
   .then(data => {
+    let totalSpent;
     const customerFirstName = individualCustomer.name.split(' ')[0];
-    const totalSpent = individualCustomer.calculateTotalSpent(rooms);
     const newCustomerCurrentBooking = new Booking(data.newBooking);
     const newHotelBooking = new Booking(data.newBooking);
-
+    
+    // 153-161 in helper function
     domUpdates.displayModal(confirmBookingModal);
     newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
     individualCustomer.currentBookings.push(newCustomerCurrentBooking);
     individualCustomer.bookings.push(newCustomerCurrentBooking);
     hotel.addBooking(newHotelBooking);
+    totalSpent = individualCustomer.calculateTotalSpent(rooms);
     domUpdates.displayWelcomeMessage(greeting, totalSpent, customerFirstName);
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
-    console.log(hotel.setAvailableRooms(bookingDate))
-    console.log(availableRoomsCardsContainer.childNodes.length)
     checkAvailableRoomsContainer();
   })
   .catch(error => {
