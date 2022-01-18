@@ -1,27 +1,27 @@
-// const greeting = document.getElementById('greeting');
-// const dashboardButton = document.getElementById('dashboardButton');
-// const availableRoomsButton = document.getElementById('availableRoomsButton');
-// const roomTypesInput = document.getElementById('roomTypes');
-// const roomTypesLabel = document.getElementById('roomTypesLabel');
-// const bookingDateLabel = document.querySelector('.search-for-booking-by-date');
-// const customerDateInput = document.getElementById('searchRoomsByDate');
-// const submitButton = document.getElementById('submitButton');
-// const pastVisitsContainer = document.getElementById('pastVisitsContainer');
-// const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
-// const loginViewContainer = document.getElementById('loginViewContainer');
-
 const show = elements => elements.forEach(element => element.classList.remove('hidden'));
 const hide = elements => elements.forEach(element => element.classList.add('hidden'));
 
 const domUpdates = {
-  displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
+  displayDashboardView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    ) {
     hide([availableRoomsContainer]);
     show([pastVisitsContainer, upcomingVisitsContainer]);
     dashboardButton.classList.add('beige');
     availableRoomsButton.classList.remove('beige');
   },
 
-  displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton) {
+  displayAvailableRoomsView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    ) {
     hide([pastVisitsContainer, upcomingVisitsContainer]);
     show([availableRoomsContainer]);
     dashboardButton.classList.remove('beige');
@@ -32,8 +32,7 @@ const domUpdates = {
     greeting.innerText = `Welcome ${customerFirstName}! You have spent $${totalSpent} so far!`
   },
 
-  // Refactor the below two functions into one
-  displayCustomerPastVisits(pastVisitsCardsContainer, customerPastBookings) {
+  displayCustomerPastVisits(pastVisitsCardsContainer,customerPastBookings) {
     pastVisitsCardsContainer.innerHTML = '';
     customerPastBookings = customerPastBookings.sort((a, b) => (a.date > b.date) - (a.date < b.date));
     customerPastBookings.forEach(booking => {
@@ -100,12 +99,57 @@ const domUpdates = {
     hide([confirmBookingModal]);
   },
 
-  displayLoginView(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer) {
-    hide([greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer])
+  displayLoginView(
+    greeting,
+    dashboardButton,
+    availableRoomsButton,
+    roomTypesInput,
+    roomTypesLabel,
+    bookingDateLabel,
+    customerDateInput,
+    submitButton,
+    pastVisitsContainer,
+    upcomingVisitsContainer
+    ) {
+    hide([
+      greeting,
+      dashboardButton,
+      availableRoomsButton,
+      roomTypesInput,
+      roomTypesLabel,
+      bookingDateLabel,
+      customerDateInput,
+      submitButton,
+      pastVisitsContainer,
+      upcomingVisitsContainer
+    ])
   },
   
-  displayUserDashboard(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer, loginViewContainer) {
-    show([greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer]);
+  displayUserDashboard(
+    greeting,
+    dashboardButton,
+    availableRoomsButton,
+    roomTypesInput,
+    roomTypesLabel,
+    bookingDateLabel,
+    customerDateInput,
+    submitButton,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    loginViewContainer
+    ) {
+    show([
+      greeting,
+      dashboardButton,
+      availableRoomsButton,
+      roomTypesInput,
+      roomTypesLabel,
+      bookingDateLabel,
+      customerDateInput,
+      submitButton,
+      pastVisitsContainer,
+      upcomingVisitsContainer
+    ]);
     hide([loginViewContainer]);
   },
   
