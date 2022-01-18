@@ -79,6 +79,16 @@
   background-color: $gold;
 }
 
+.available-rooms-header-container {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+}
+
+.booking-for-date-message {
+  margin: 1%;
+}
+
 .past-visits-header,
 .upcoming-visits-header,
 .available-rooms-header {
