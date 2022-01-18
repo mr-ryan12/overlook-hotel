@@ -106,11 +106,9 @@ const getAvailableRoomsWithInputs = () => {
     domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   } else {
     autofillCurrentDate();
-    console.log(formatDates(todaysDate))
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
     domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(todaysDate));
   }
-  // domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   checkAvailableRoomsContainer();
   roomTypesInput.value = '';
 }
