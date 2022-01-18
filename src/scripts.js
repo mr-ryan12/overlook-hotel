@@ -51,6 +51,12 @@ const invalidLoginMessage = document.getElementById('loginErrorMessage');
 const showPasswordCheckbox = document.getElementById('showPassword');
 const emptyAvailableRoomsContainer = document.getElementById('emptyAvailableRoomsContainer');
 const bookingForDateMessage = document.getElementById('bookingForDateMessage');
+const roomTypesLabel = document.getElementById('roomTypesLabel');
+const bookingDateLabel = document.querySelector('.search-for-booking-by-date');
+const loginViewContainer = document.getElementById('loginViewContainer');
+
+
+
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -196,7 +202,7 @@ const displaySuccessfulLoginView = event => {
         individualCustomer = new User(data);
         setCustomerData(individualCustomer, rooms, bookings);
         getAvailableRoomsWithoutInputs();
-        domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+        domUpdates.displayUserDashboard(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer, loginViewContainer);
       }).catch(error => {
         invalidLoginMessage.innerText = 'Sorry, something went wrong. Please try again.';
         domUpdates.displayInvalidLoginMessage(invalidLoginMessage)
@@ -217,7 +223,9 @@ const addEventListenersToBookNowButtons = () => {
 }
 
 window.addEventListener('load', getAllData);
-window.addEventListener('load', domUpdates.displayLoginView);
+window.addEventListener('load', () => {
+  domUpdates.displayLoginView(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer)
+});
 showPasswordCheckbox.addEventListener('click', showPassword);
 loginButton.addEventListener('click', displaySuccessfulLoginView);
 dashboardButton.addEventListener('click', () => {
