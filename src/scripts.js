@@ -4,7 +4,7 @@ import User from './classes/User';
 import Hotel from './classes/Hotel';
 import Booking from './classes/Booking';
 import domUpdates from './domUpdates';
-import {customersData, roomsData, bookingsData, createBooking, getData} from './apiCalls';
+import {customersData, roomsData, bookingsData, createBooking, fetchIndividualCustomer} from './apiCalls';
 
 let customers;
 let hotel;
@@ -13,13 +13,12 @@ let rooms;
 let individualCustomer;
 
 const getAllData = () => {
-  Promise.all([customersData, roomsData, bookingsData])
+  Promise.all([customersData(), roomsData(), bookingsData()])
     .then(data => {
       customers = new User(data[0].customers[0]);
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       bookings = data[2].bookings;
       rooms = data[1].rooms;
-      // getAvailableRoomsWithoutInputs();
     })
     .catch(error => {
       bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
@@ -157,6 +156,8 @@ const createNewBooking = event => {
     domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(bookingDate));
     domUpdates.displayCustomerCurrentVisits(currentVisitsCardsContainer, individualCustomer.currentBookings);
     addEventListenersToBookNowButtons();
+    console.log(hotel.setAvailableRooms(bookingDate))
+    //hotel.setAvailableRooms(bookingDate).length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : null;
   })
   .catch(error => {
     bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
@@ -181,20 +182,16 @@ const displaySuccessfulLoginView = event => {
   const foundGuest = hotel.guests.find(guest => guest.id === usernameId);
 
   if (foundGuest && passwordInputValue === 'overlook2021') {
-    fetchIndividualCustomer(usernameId);
-    domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+    fetchIndividualCustomer(usernameId)
+      .then(data => {
+        individualCustomer = new User(data);
+        setCustomerData(individualCustomer, rooms, bookings);
+        getAvailableRoomsWithoutInputs();
+        domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+      });
   } else {
     domUpdates.displayInvalidLoginMessage(invalidLoginMessage);
   }
-}
-
-const fetchIndividualCustomer = (id) => {
-  getData(`customers/${id}`)
-    .then(data => {
-      individualCustomer = new User(data);
-      setCustomerData(individualCustomer, rooms, bookings);
-      getAvailableRoomsWithoutInputs();
-    });
 }
 
 const addEventListenersToBookNowButtons = () => {

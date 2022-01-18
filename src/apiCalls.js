@@ -24,8 +24,12 @@ const checkForErrors = response => {
   }
 }
 
-const customersData = getData('customers')
-const roomsData = getData('rooms');
-const bookingsData = getData('bookings');
+const fetchIndividualCustomer = id => {
+  return getData(`customers/${id}`)
+}
 
-export {customersData, roomsData, bookingsData, createBooking, getData}
+const customersData = () =>  getData('customers');
+const roomsData = () => getData('rooms');
+const bookingsData = () =>  getData('bookings');
+
+export {customersData, roomsData, bookingsData, createBooking, fetchIndividualCustomer}

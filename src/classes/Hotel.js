@@ -3,6 +3,7 @@ class Hotel {
     this.guests = usersData || [];
     this.rooms = roomsData || [];
     this.bookings = bookingsData || [];
+    this.date = '';
   }
 
   convertTodaysDate() {
