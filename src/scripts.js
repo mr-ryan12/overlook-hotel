@@ -220,9 +220,9 @@ navBarTitleButton.addEventListener('click', () => {
   domUpdates.resetApologeticMessage(apologeticMessageContainer)
 });
 availableRoomsButton.addEventListener('click', () => {
-  checkAvailableRoomsContainer();
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  checkAvailableRoomsContainer();
   resetInputs();
   autofillCurrentDate();
   addEventListenersToBookNowButtons();
