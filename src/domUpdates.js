@@ -1,4 +1,3 @@
-const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
 const greeting = document.getElementById('greeting');
 const dashboardButton = document.getElementById('dashboardButton');
 const availableRoomsButton = document.getElementById('availableRoomsButton');
@@ -93,7 +92,7 @@ const domUpdates = {
     availableRoomsCardsContainer.innerHTML = '';
   },
 
-  displayModal() {
+  displayModal(confirmBookingModal) {
     show([confirmBookingModal]);
   }, 
 
