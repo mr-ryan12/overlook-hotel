@@ -124,6 +124,10 @@ const domUpdates = {
 
   hideNoMoreRoomsMessage(emptyAvailableRoomsContainer) {
     hide([emptyAvailableRoomsContainer]);
+  },
+
+  updateBookingForDateMessage(bookingForDateMessage, date) {
+    bookingForDateMessage.innerText = `Booking for: ${date}`
   }
 }
 

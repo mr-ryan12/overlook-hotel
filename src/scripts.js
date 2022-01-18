@@ -50,6 +50,7 @@ const passwordInput = document.getElementById('password');
 const invalidLoginMessage = document.getElementById('loginErrorMessage');
 const showPasswordCheckbox = document.getElementById('showPassword');
 const emptyAvailableRoomsContainer = document.getElementById('emptyAvailableRoomsContainer');
+const bookingForDateMessage = document.getElementById('bookingForDateMessage');
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -104,6 +105,7 @@ const getAvailableRoomsWithInputs = () => {
     autofillCurrentDate();
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
   }
+  domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   checkAvailableRoomsContainer();
   roomTypesInput.value = '';
 }
@@ -198,6 +200,12 @@ const displaySuccessfulLoginView = event => {
   }
 }
 
+const updateBookingDateMessage = bookingForDateMessage => {
+  const bookingDate = customerDateInput.value.split('-').join('/');
+  console.log(bookingDate)
+  domUpdates.updateBookingForDateMessage(bookingForDateMessage, bookingDate);
+}
+
 const checkAvailableRoomsContainer = () => {
   availableRoomsCardsContainer.childNodes.length === 0 ? domUpdates.displayNoMoreRoomsMessage(emptyAvailableRoomsContainer) : domUpdates.hideNoMoreRoomsMessage(emptyAvailableRoomsContainer);
 }
@@ -222,6 +230,7 @@ navBarTitleButton.addEventListener('click', () => {
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
   domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(hotel.convertTodaysDate()));
   checkAvailableRoomsContainer();
   resetInputs();
   autofillCurrentDate();
