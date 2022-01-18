@@ -70,9 +70,9 @@ describe('Hotel', () => {
   it('should default to an empty list of available rooms', () => {
     const hotel1 = new Hotel();
 
-    expect(hotel1.availableRooms).to.be.an('array');
-    expect(hotel1.availableRooms.length).to.equal(0);
-    expect(hotel1.availableRooms).to.deep.equal([]);
+    expect(hotel1.setAvailableRooms()).to.be.an('array');
+    expect(hotel1.setAvailableRooms().length).to.equal(0);
+    expect(hotel1.setAvailableRooms()).to.deep.equal([]);
   });
 
   it('should have a date', () => {
@@ -86,17 +86,61 @@ describe('Hotel', () => {
   it('should have a default value if no rooms are available on a specific date', () => {
     const dateSearchValue = '2022/01/11';
 
-    hotel.setAvailableRooms(dateSearchValue);
+    const booking1 = {
+      "id": "5fwrgu4i7k55hl6t5",
+      "userID": 43,
+      "date": "2022/01/11",
+      "roomNumber": 24,
+      "roomServiceCharges": []
+    }
+    const booking2 = {
+      "id": "5fwrgu4i7k55hl6t6",
+      "userID": 43,
+      "date": "2022/01/11",
+      "roomNumber": 50,
+      "roomServiceCharges": []
+    }
+    const booking3 = {
+      "id": "5fwrgu4i7k55hl6t7",
+      "userID": 43,
+      "date": "2022/01/11",
+      "roomNumber": 51,
+      "roomServiceCharges": []
+    }
+    const room1 =   {
+      "number": 24,
+      "roomType": "residential suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 1,
+      "costPerNight": 294.56
+    }
+    const room2 =   {
+      "number": 50,
+      "roomType": "residential suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 1,
+      "costPerNight": 294.56
+    }
+    const room3 =   {
+      "number": 51,
+      "roomType": "residential suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 1,
+      "costPerNight": 294.56
+    }
 
-    expect(hotel.availableRooms).to.be.an('array');
-    expect(hotel.availableRooms.length).to.equal(0);
+    bookingsData = [booking1, booking2, booking3];
+    roomsData = [room1, room2, room3];
+
+    expect(hotel.setAvailableRooms(dateSearchValue)).to.be.an('array');
+    expect(hotel.setAvailableRooms(dateSearchValue)).to.equal(0);
   });
 
   it('should return a list of rooms on a specific date', () => {
     const dateSearchValue = '2022/01/18';
-
-    // hotel.checkAvailableRoomsByDate(dateSearchValue);
-
     expect(hotel.setAvailableRooms(dateSearchValue)).to.be.an('array');
     expect(hotel.setAvailableRooms(dateSearchValue).length).to.equal(8);
   });
