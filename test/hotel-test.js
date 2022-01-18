@@ -149,11 +149,6 @@ describe('Hotel', () => {
     expect(hotel.setAvailableRooms(dateSearchValue).length).to.equal(8);
   });
 
-  it('should not have a room type search by default', () => {
-    expect(hotel.filterTerm).to.be.a('string');
-    expect(hotel.filterTerm).to.equal('');
-  });
-
   it('should not have rooms available if the room type does not match the input', () => {
     const filterTerm = 'junior';
     expect(hotel.checkAvailableRoomsByType(filterTerm, todaysDate).length).to.equal(0);
