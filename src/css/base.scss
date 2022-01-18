@@ -45,7 +45,8 @@
 
 .nav-dashboard-button,
 .available-rooms-button,
-.submit-button {
+.submit-button,
+.login-button {
   border-radius: 8px;
   border: none;
   background-color: #a8772d;
@@ -154,7 +155,8 @@ button {
   text-align: center;
 }
 
-.confirm-booking-modal-container {
+.confirm-booking-modal-container,
+.login-view-container {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -177,6 +179,40 @@ button {
   vertical-align: middle;
   line-height: 131px;
   font-size: 20px;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  width: 40%;
+  background-color: $white;
+}
+
+.login-form-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 10%;
+}
+
+.username-input,
+.password-input {
+  margin-bottom: 10px;
+}
+
+.show-password-container {
+  margin-top: 20px;
+}
+
+.login-error-message {
+  margin: 0 0 7vh 0;
+}
+
+.empty-available-rooms-contianer {
+  text-align: center;
 }
 
 .hidden {

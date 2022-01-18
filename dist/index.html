@@ -46,6 +46,7 @@
         <section class="available-rooms-header-container">
           <h1 class="available-rooms-header">Available Rooms</h1>
         </section>
+        <p class="empty-available-rooms-contianer hidden" id="emptyAvailableRoomsContainer">No more selections</p>
         <section class="available-rooms-cards-container" id="availableRoomsCardsContainer">
         </section>
       </section>
@@ -54,6 +55,25 @@
       <section class="confirm-booking-modal">
         <p class="booking-message" id="bookingMessage">Success! Your room is booked!</p>
         <button class="close-modal-button" id="closeModalButton">Close</button>
+      </section>
+    </section>
+    <section class="login-view-container" id="loginViewContainer">
+      <section class="login-form-container" id="loginFormContainer">
+        <h1>Please Log In</h1>
+        <p class="login-error-message hidden" id="loginErrorMessage">Invalid username or password. Please try again.</p>
+        <form class="login-form" id="loginForm">
+          <section class="login-form-inputs">
+            <label for="username">Username</label>
+            <input type="text" id="name" class="username-input" placeholder="Enter Username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" class="password-input" placeholder="Enter Password" required>
+            <button class="login-button" id="loginButton">Login</button>
+            <section class="show-password-container">
+              <input type="checkbox" id="showPassword">
+              <label for="showPassword" type="checkbox" class="show-password-label">Show Password</label>
+            </section>
+          </section>
+        </form>
       </section>
     </section>
   </main>

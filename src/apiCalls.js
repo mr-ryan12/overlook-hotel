@@ -5,9 +5,6 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
-const customersData = getData('customers');
-const roomsData = getData('rooms');
-const bookingsData = getData('bookings');
 
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
@@ -27,4 +24,12 @@ const checkForErrors = response => {
   }
 }
 
-export {customersData, roomsData, bookingsData, createBooking}
+const fetchIndividualCustomer = id => {
+  return getData(`customers/${id}`)
+}
+
+const customersData = () =>  getData('customers');
+const roomsData = () => getData('rooms');
+const bookingsData = () =>  getData('bookings');
+
+export {customersData, roomsData, bookingsData, createBooking, fetchIndividualCustomer}

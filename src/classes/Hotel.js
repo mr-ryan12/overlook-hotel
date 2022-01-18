@@ -3,8 +3,7 @@ class Hotel {
     this.guests = usersData || [];
     this.rooms = roomsData || [];
     this.bookings = bookingsData || [];
-    this.availableRooms = [];
-    this.filterTerm = '';
+    this.date = '';
   }
 
   convertTodaysDate() {
@@ -15,10 +14,19 @@ class Hotel {
     return todaysDate.toISOString().split('T')[0].split('-').join('/');
   }
 
+  standardizeDate(date) {
+    let [a, b, c] = date.replaceAll('-', '/').split('/');
+    if (a.length === 4) {
+      return [a, b, c].join('/');
+    } else {
+      return [c, a, b].join('/');
+    }
+  }
+
   setAvailableRooms(date) {
     const bookedRooms = this.bookings.reduce((acc, booking) => {
       this.rooms.forEach(room => {
-        if (booking.date === date && room.number === booking.roomNumber) {
+        if (this.standardizeDate(booking.date) === this.standardizeDate(date) && room.number === booking.roomNumber) {
           acc.push(room);
         }
       })
@@ -38,26 +46,11 @@ class Hotel {
     this.bookings.push(booking)
   }
 
-  checkAvailableRoomsByDate(date) {
-    const todaysDate = this.convertTodaysDate();
-    let foundRooms;
-
-    if (date >= todaysDate) {
-      foundRooms = this.availableRooms || [];
-    }
-
-    return foundRooms;
-  }
-
   checkAvailableRoomsByType(term, date) {
     const availableRooms = this.setAvailableRooms(date);
     const foundRooms = availableRooms.filter(room => room.roomType === term);
     
     return foundRooms;
-  }
-
-  removeRoom() {
-    
   }
 }
 
