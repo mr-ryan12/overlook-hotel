@@ -5,9 +5,6 @@ const getData = api => {
     .then(response => checkForErrors(response));
 }
 
-const customersData = getData('customers')
-const roomsData = getData('rooms');
-const bookingsData = getData('bookings');
 
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
@@ -26,5 +23,9 @@ const checkForErrors = response => {
     throw new Error('Something went wrong. Please try again.');
   }
 }
+
+const customersData = getData('customers')
+const roomsData = getData('rooms');
+const bookingsData = getData('bookings');
 
 export {customersData, roomsData, bookingsData, createBooking, getData}

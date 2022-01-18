@@ -19,7 +19,7 @@ const getAllData = () => {
       hotel = new Hotel(data[0].customers, data[1].rooms, data[2].bookings);
       bookings = data[2].bookings;
       rooms = data[1].rooms;
-      getAvailableRoomsWithoutInputs();
+      // getAvailableRoomsWithoutInputs();
     })
     .catch(error => {
       bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
@@ -147,7 +147,7 @@ const createNewBooking = event => {
     const totalSpent = individualCustomer.calculateTotalSpent(rooms);
     const newCustomerCurrentBooking = new Booking(data.newBooking);
     const newHotelBooking = new Booking(data.newBooking);
-    
+
     domUpdates.displayModal(confirmBookingModal);
     newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
     individualCustomer.currentBookings.push(newCustomerCurrentBooking);

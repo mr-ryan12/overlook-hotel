@@ -8,11 +8,18 @@ import Hotel from '../src/classes/Hotel';
 describe('Hotel', () => {
 
   let hotel;
+  let todaysDate;
   let usersData = users;
   let roomsData = rooms;
   let bookingsData = bookings;
 
   beforeEach(() => {
+    todaysDate = new Date();
+    const timezoneOffset = todaysDate.getTimezoneOffset();
+
+    todaysDate = new Date(todaysDate.getTime() - (timezoneOffset * 60 * 1000));
+    todaysDate = todaysDate.toISOString().split('T')[0].split('-').join('/');
+
     hotel = new Hotel(usersData, roomsData, bookingsData);
   });
 
@@ -69,47 +76,29 @@ describe('Hotel', () => {
   });
 
   it('should have a date', () => {
-    let todaysDate = new Date();
-    const timezoneOffset = todaysDate.getTimezoneOffset();
-
-    todaysDate = new Date(todaysDate.getTime() - (timezoneOffset * 60 * 1000));
-    todaysDate = todaysDate.toISOString().split('T')[0].split('-').join('/');
-
     expect(hotel.convertTodaysDate()).to.equal(todaysDate);
-  })
+  });
 
-  it('should have a list of available rooms', () => {
-    const todaysDate = '2022/01/13';
-
-    hotel.setAvailableRooms(todaysDate);
-    expect(hotel.availableRooms.length).to.equal(8);
+  it('should have a list of available rooms on today\'s date', () => {
+    expect(hotel.setAvailableRooms(todaysDate)).to.be.an('array');
   });
 
   it('should have a default value if no rooms are available on a specific date', () => {
     const dateSearchValue = '2022/01/11';
 
-    hotel.checkAvailableRoomsByDate(dateSearchValue);
+    hotel.setAvailableRooms(dateSearchValue);
 
     expect(hotel.availableRooms).to.be.an('array');
     expect(hotel.availableRooms.length).to.equal(0);
-  });
-
-  it('should return a message to the user if there are not any rooms available based on their search date', () => {
-    const dateSearchValue = '2022/01/11';
-
-    hotel.checkAvailableRoomsByDate(dateSearchValue);
-
-    expect(hotel.availableRooms.length).to.equal(0);
-    expect(hotel.checkAvailableRoomsByDate(dateSearchValue)).to.equal('So sorry, there are not any available rooms. Please adjust your search.');
   });
 
   it('should return a list of rooms on a specific date', () => {
     const dateSearchValue = '2022/01/18';
 
-    hotel.checkAvailableRoomsByDate(dateSearchValue);
+    // hotel.checkAvailableRoomsByDate(dateSearchValue);
 
-    expect(hotel.availableRooms).to.be.an('array');
-    expect(hotel.availableRooms.length).to.equal(8);
+    expect(hotel.setAvailableRooms(dateSearchValue)).to.be.an('array');
+    expect(hotel.setAvailableRooms(dateSearchValue).length).to.equal(8);
   });
 
   it('should not have a room type search by default', () => {
@@ -117,13 +106,9 @@ describe('Hotel', () => {
     expect(hotel.filterTerm).to.equal('');
   });
 
-  it('should return a message if there are not any rooms available based on their room type search', () => {
+  it('should not have rooms available if the room type does not match the input', () => {
     const filterTerm = 'junior';
-    const todaysDate = '2022/01/14'
-
-    hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
-
-    expect(hotel.checkAvailableRoomsByType(filterTerm, todaysDate)).to.equal('So sorry, there are not any available rooms. Please adjust your search.')
+    expect(hotel.checkAvailableRoomsByType(filterTerm, todaysDate).length).to.equal(0);
   });
 
   it('should be able to filter the list of available rooms based on the room type', () => {

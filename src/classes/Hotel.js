@@ -38,26 +38,11 @@ class Hotel {
     this.bookings.push(booking)
   }
 
-  checkAvailableRoomsByDate(date) {
-    const todaysDate = this.convertTodaysDate();
-    let foundRooms;
-
-    if (date >= todaysDate) {
-      foundRooms = this.availableRooms || [];
-    }
-
-    return foundRooms;
-  }
-
   checkAvailableRoomsByType(term, date) {
     const availableRooms = this.setAvailableRooms(date);
     const foundRooms = availableRooms.filter(room => room.roomType === term);
     
     return foundRooms;
-  }
-
-  removeRoom() {
-    
   }
 }
 
