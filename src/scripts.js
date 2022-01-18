@@ -96,16 +96,21 @@ const getAvailableRoomsWithInputs = () => {
     filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
     autofillCurrentDate();
     displayFilterResults(filteredRoomsByType);
+    domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(todaysDate));
   } else if (filterTerm === '' && dateInput !== '') {
     dateInput < todaysDate ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : filteredRoomsByDate = hotel.setAvailableRooms(dateInput);
     filteredRoomsByDate ? displayFilterResults(filteredRoomsByDate) : domUpdates.clearAvailableRoomsCardsContainer(availableRoomsCardsContainer);
+    domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   } else if (filterTerm !== '' && dateInput !== '') {
     checkBothInputs(dateInput, todaysDate, filteredRoomsByType, filterTerm);
+    domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   } else {
     autofillCurrentDate();
+    console.log(formatDates(todaysDate))
     domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+    domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(todaysDate));
   }
-  domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
+  // domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   checkAvailableRoomsContainer();
   roomTypesInput.value = '';
 }
