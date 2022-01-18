@@ -21,8 +21,8 @@ const getAllData = () => {
       rooms = data[1].rooms;
     })
     .catch(error => {
-      bookingMessage.innerText = 'Sorry, something went wrong. Please try again.';
-      domUpdates.displayModal();
+      invalidLoginMessage.innerText = 'Sorry, something went wrong. Please try again.';
+      domUpdates.displayInvalidLoginMessage(invalidLoginMessage)
       console.log(error)
     })
 }
@@ -197,7 +197,11 @@ const displaySuccessfulLoginView = event => {
         setCustomerData(individualCustomer, rooms, bookings);
         getAvailableRoomsWithoutInputs();
         domUpdates.displayUserDashboard(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
-      });
+      }).catch(error => {
+        invalidLoginMessage.innerText = 'Sorry, something went wrong. Please try again.';
+        domUpdates.displayInvalidLoginMessage(invalidLoginMessage)
+        console.log(error)
+      })
   } else {
     domUpdates.displayInvalidLoginMessage(invalidLoginMessage);
   }
