@@ -28,35 +28,32 @@ const getAllData = () => {
 }
 
 const greeting = document.getElementById('greeting');
-const closeModalButton = document.getElementById('closeModalButton');
+const usernameInput = document.getElementById('name');
+const passwordInput = document.getElementById('password');
+const loginButton = document.getElementById('loginButton');
 const roomTypesInput = document.getElementById('roomTypes');
 const submitButton = document.getElementById('submitButton');
+const roomTypesLabel = document.getElementById('roomTypesLabel');
+const bookingMessage = document.getElementById('bookingMessage');
 const dashboardButton = document.getElementById('dashboardButton');
+const closeModalButton = document.getElementById('closeModalButton');
+const showPasswordCheckbox = document.getElementById('showPassword');
 const customerDateInput = document.getElementById('searchRoomsByDate');
 const navBarTitleButton = document.getElementById('navBarTitleButton');
+const invalidLoginMessage = document.getElementById('loginErrorMessage');
+const loginViewContainer = document.getElementById('loginViewContainer');
 const pastVisitsContainer = document.getElementById('pastVisitsContainer');
 const availableRoomsButton = document.getElementById('availableRoomsButton');
+const bookingForDateMessage = document.getElementById('bookingForDateMessage');
+const bookingDateLabel = document.querySelector('.search-for-booking-by-date');
 const availableRoomsContainer = document.getElementById('availableRoomsContainer');
 const upcomingVisitsContainer = document.getElementById('upcomingVisitsContainer');
 const pastVisitsCardsContainer = document.getElementById('pastVisitsCardsContainer');
-const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
-const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
-const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
 const confirmBookingModal = document.querySelector('.confirm-booking-modal-container');
-const bookingMessage = document.getElementById('bookingMessage');
-const loginButton = document.getElementById('loginButton');
-const usernameInput = document.getElementById('name');
-const passwordInput = document.getElementById('password');
-const invalidLoginMessage = document.getElementById('loginErrorMessage');
-const showPasswordCheckbox = document.getElementById('showPassword');
+const apologeticMessageContainer = document.querySelector('.apologetic-message-container');
+const currentVisitsCardsContainer = document.getElementById('upcomingVisitsCardsContainer');
+const availableRoomsCardsContainer = document.getElementById('availableRoomsCardsContainer')
 const emptyAvailableRoomsContainer = document.getElementById('emptyAvailableRoomsContainer');
-const bookingForDateMessage = document.getElementById('bookingForDateMessage');
-const roomTypesLabel = document.getElementById('roomTypesLabel');
-const bookingDateLabel = document.querySelector('.search-for-booking-by-date');
-const loginViewContainer = document.getElementById('loginViewContainer');
-
-
-
 
 const formatDates = date => {
   const splitDate = date.split('/');
@@ -70,7 +67,6 @@ const setCustomerData = (customer, rooms, bookings) => {
   customer.setBookings(bookings);
   customer.findCurrentAndPastBookings(todaysDate);
   
-  // create below into helper function - pass in customer
   const totalSpent = customer.calculateTotalSpent(rooms);
   const customerPastBookings = customer.pastBookings.filter(booking => booking.date = formatDates(booking.date));
   const customerCurrentBookings = customer.currentBookings.filter(booking => booking.date = formatDates(booking.date));
@@ -83,10 +79,8 @@ const setCustomerData = (customer, rooms, bookings) => {
 
 const getAvailableRoomsWithoutInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
-  // is this necessary? line 82 has the same thing
-  hotel.setAvailableRooms(todaysDate);
-  
   const availableRooms = hotel.setAvailableRooms(todaysDate);
+
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, availableRooms);
   addEventListenersToBookNowButtons();
 }
@@ -98,6 +92,12 @@ const getAvailableRoomsWithInputs = () => {
   const todaysDate = hotel.convertTodaysDate();
   const filterTerm = roomTypesInput.value;
   
+  changeAvailabeRoomsDisplayWithInputs(filteredRoomsByDate, filteredRoomsByType, dateInput, todaysDate, filterTerm)
+  checkAvailableRoomsContainer();
+  roomTypesInput.value = '';
+}
+
+const changeAvailabeRoomsDisplayWithInputs = (filteredRoomsByDate, filteredRoomsByType, dateInput, todaysDate, filterTerm) => {
   if (filterTerm !== '' && dateInput === '') {
     filteredRoomsByType = hotel.checkAvailableRoomsByType(filterTerm, todaysDate);
     autofillCurrentDate();
@@ -112,16 +112,26 @@ const getAvailableRoomsWithInputs = () => {
     domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(dateInput));
   } else {
     autofillCurrentDate();
-    domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+    domUpdates.displayAvailableRoomsView(
+      availableRoomsContainer,
+      pastVisitsContainer,
+      upcomingVisitsContainer,
+      dashboardButton,
+      availableRoomsButton
+      );
     domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(todaysDate));
   }
-  checkAvailableRoomsContainer();
-  roomTypesInput.value = '';
 }
 
 const displayFilterResults = filteredRoomsByInput => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, filteredRoomsByInput);
-  domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.displayAvailableRoomsView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    );
   filteredRoomsByInput.length === 0 ? domUpdates.displayApologeticMessage(apologeticMessageContainer) : domUpdates.resetApologeticMessage(apologeticMessageContainer);
   addEventListenersToBookNowButtons();
 }
@@ -161,7 +171,6 @@ const createNewBooking = event => {
     const newCustomerCurrentBooking = new Booking(data.newBooking);
     const newHotelBooking = new Booking(data.newBooking);
     
-    // 153-161 in helper function
     domUpdates.displayModal(confirmBookingModal);
     newCustomerCurrentBooking.date = formatDates(data.newBooking.date);
     individualCustomer.currentBookings.push(newCustomerCurrentBooking);
@@ -202,7 +211,19 @@ const displaySuccessfulLoginView = event => {
         individualCustomer = new User(data);
         setCustomerData(individualCustomer, rooms, bookings);
         getAvailableRoomsWithoutInputs();
-        domUpdates.displayUserDashboard(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer, loginViewContainer);
+        domUpdates.displayUserDashboard(
+          greeting,
+          dashboardButton,
+          availableRoomsButton,
+          roomTypesInput,
+          roomTypesLabel,
+          bookingDateLabel,
+          customerDateInput,
+          submitButton,
+          pastVisitsContainer,
+          upcomingVisitsContainer,
+          loginViewContainer
+          );
       }).catch(error => {
         invalidLoginMessage.innerText = 'Sorry, something went wrong. Please try again.';
         domUpdates.displayInvalidLoginMessage(invalidLoginMessage)
@@ -224,21 +245,50 @@ const addEventListenersToBookNowButtons = () => {
 
 window.addEventListener('load', getAllData);
 window.addEventListener('load', () => {
-  domUpdates.displayLoginView(greeting, dashboardButton, availableRoomsButton, roomTypesInput, roomTypesLabel, bookingDateLabel, customerDateInput, submitButton, pastVisitsContainer, upcomingVisitsContainer)
+  domUpdates.displayLoginView(
+    greeting,
+    dashboardButton,
+    availableRoomsButton,
+    roomTypesInput,
+    roomTypesLabel,
+    bookingDateLabel,
+    customerDateInput,
+    submitButton,
+    pastVisitsContainer,
+    upcomingVisitsContainer
+    )
 });
 showPasswordCheckbox.addEventListener('click', showPassword);
 loginButton.addEventListener('click', displaySuccessfulLoginView);
 dashboardButton.addEventListener('click', () => {
-  domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.displayDashboardView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    );
   domUpdates.resetApologeticMessage(apologeticMessageContainer);
 });
 navBarTitleButton.addEventListener('click', () => {
-  domUpdates.displayDashboardView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.displayDashboardView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    );
   domUpdates.resetApologeticMessage(apologeticMessageContainer)
 });
 availableRoomsButton.addEventListener('click', () => {
   domUpdates.displayAvailableRooms(availableRoomsCardsContainer, hotel.setAvailableRooms(hotel.convertTodaysDate()))
-  domUpdates.displayAvailableRoomsView(availableRoomsContainer, pastVisitsContainer, upcomingVisitsContainer, dashboardButton, availableRoomsButton);
+  domUpdates.displayAvailableRoomsView(
+    availableRoomsContainer,
+    pastVisitsContainer,
+    upcomingVisitsContainer,
+    dashboardButton,
+    availableRoomsButton
+    );
   domUpdates.updateBookingForDateMessage(bookingForDateMessage, formatDates(hotel.convertTodaysDate()));
   checkAvailableRoomsContainer();
   resetInputs();
