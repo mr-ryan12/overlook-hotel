@@ -27,6 +27,7 @@ const getAllData = () => {
     })
 }
 
+// Query Selectors
 const greeting = document.getElementById('greeting');
 const usernameInput = document.getElementById('name');
 const passwordInput = document.getElementById('password');
@@ -256,7 +257,7 @@ window.addEventListener('load', () => {
     submitButton,
     pastVisitsContainer,
     upcomingVisitsContainer
-    )
+    );
 });
 showPasswordCheckbox.addEventListener('click', showPassword);
 loginButton.addEventListener('click', displaySuccessfulLoginView);
@@ -298,4 +299,4 @@ availableRoomsButton.addEventListener('click', () => {
 submitButton.addEventListener('click', getAvailableRoomsWithInputs);
 closeModalButton.addEventListener('click', () => {
   domUpdates.closeModal(confirmBookingModal);
-})
+});
