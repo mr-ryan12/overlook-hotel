@@ -79,35 +79,38 @@ describe('Hotel', () => {
     expect(hotel.convertTodaysDate()).to.equal(todaysDate);
   });
 
-  it('should have a list of available rooms on today\'s date', () => {
-    expect(hotel.setAvailableRooms(todaysDate)).to.be.an('array');
+  it('should standardize the date', () => {
+    const dateInput = '01/25/2022';
+    const standardizedDate = hotel.standardizeDate(dateInput);
+
+    expect(standardizedDate).to.equal('2022/01/25');
   });
 
   it('should have a default value if no rooms are available on a specific date', () => {
-    const dateSearchValue = '2022/01/11';
+    const dateSearchValue = '2022/01/25';
 
     const booking1 = {
       "id": "5fwrgu4i7k55hl6t5",
       "userID": 43,
-      "date": "2022/01/11",
+      "date": "2022/01/25",
       "roomNumber": 24,
       "roomServiceCharges": []
     }
     const booking2 = {
       "id": "5fwrgu4i7k55hl6t6",
       "userID": 43,
-      "date": "2022/01/11",
+      "date": "2022/01/25",
       "roomNumber": 50,
       "roomServiceCharges": []
     }
     const booking3 = {
       "id": "5fwrgu4i7k55hl6t7",
       "userID": 43,
-      "date": "2022/01/11",
+      "date": "2022/01/25",
       "roomNumber": 51,
       "roomServiceCharges": []
     }
-    const room1 =   {
+    const room1 = {
       "number": 24,
       "roomType": "residential suite",
       "bidet": false,
@@ -115,7 +118,7 @@ describe('Hotel', () => {
       "numBeds": 1,
       "costPerNight": 294.56
     }
-    const room2 =   {
+    const room2 = {
       "number": 50,
       "roomType": "residential suite",
       "bidet": false,
@@ -123,7 +126,7 @@ describe('Hotel', () => {
       "numBeds": 1,
       "costPerNight": 294.56
     }
-    const room3 =   {
+    const room3 = {
       "number": 51,
       "roomType": "residential suite",
       "bidet": false,
@@ -132,28 +135,34 @@ describe('Hotel', () => {
       "costPerNight": 294.56
     }
 
-    bookingsData = [booking1, booking2, booking3];
-    roomsData = [room1, room2, room3];
+    const bookingsData1 = [booking1, booking2, booking3];
+    const roomsData1 = [room1, room2, room3];
+
+    hotel.bookings = bookingsData1;
+    hotel.rooms = roomsData1;
 
     expect(hotel.setAvailableRooms(dateSearchValue)).to.be.an('array');
-    expect(hotel.setAvailableRooms(dateSearchValue)).to.equal(0);
+    expect(hotel.setAvailableRooms(dateSearchValue).length).to.equal(0);
   });
 
   it('should return a list of rooms on a specific date', () => {
-    const dateSearchValue = '2022/01/18';
+    const dateSearchValue = '2022/01/24';
+
     expect(hotel.setAvailableRooms(dateSearchValue)).to.be.an('array');
     expect(hotel.setAvailableRooms(dateSearchValue).length).to.equal(8);
   });
 
-  it('should not have a room type search by default', () => {
-    expect(hotel.filterTerm).to.be.a('string');
-    expect(hotel.filterTerm).to.equal('');
-  });
-
-  it('should not have rooms available if the room type does not match the input', () => {
+  it('should not have rooms available if the room type does not match the input on todays date', () => {
     const filterTerm = 'junior';
     expect(hotel.checkAvailableRoomsByType(filterTerm, todaysDate).length).to.equal(0);
   });
+
+  it('should not have rooms available if the room type does not match the input on a different date', () => {
+    const filterTerm = 'junior';
+    const dateInput = '2022/01/24';
+
+    expect(hotel.checkAvailableRoomsByType(filterTerm, dateInput));
+  })
 
   it('should be able to filter the list of available rooms based on the room type', () => {
     const filterTerm = 'residential suite';

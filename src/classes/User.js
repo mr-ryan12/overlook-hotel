@@ -1,7 +1,7 @@
 class User {
   constructor(user) {
-    this.id = user.id;
-    this.name = user.name;
+    this.id = user.id || 0;
+    this.name = user.name || 'Guest';
     this.bookings = [];
     this.totalSpent = 0;
     this.pastBookings = [];
@@ -26,15 +26,15 @@ class User {
   }
 
   findCurrentAndPastBookings(date) {
-    const splitTodaysDate = date.split('/');
+    const [todaysYear, todaysMonth, todaysDay] = date.split('/');
 
     this.pastBookings = this.bookings.filter(booking => {
-      const splitBookingDate = booking.date.split('/');
-      if (splitBookingDate[0] < splitTodaysDate[0]) {
+      const [bookingYear, bookingMonth, bookingDay] = booking.date.split('/');
+      if (bookingYear < todaysYear) {
         return booking;
-      } else if (splitBookingDate[0] === splitTodaysDate[0] && splitBookingDate[1] < splitTodaysDate[1]) {
+      } else if (bookingYear === todaysYear && bookingMonth < todaysMonth) {
         return booking;
-      } else if (splitBookingDate[0] === splitTodaysDate[0] && splitBookingDate[1] === splitTodaysDate[1] && splitBookingDate[2] < splitTodaysDate[2]) {
+      } else if (bookingYear === todaysYear && bookingMonth === todaysMonth && bookingDay < todaysDay) {
         return booking;
       } else {
         this.currentBookings.push(booking);

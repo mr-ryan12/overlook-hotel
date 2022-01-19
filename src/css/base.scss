@@ -4,7 +4,7 @@
 
 .background-image {
   min-height: $one-hundred-percent;
-  min-width: 1024px;
+  min-width: $minimum-width;
   width: $one-hundred-percent;
   height: auto;
   position: fixed;
@@ -15,8 +15,7 @@
 .nav-bar {
   width: $one-hundred-percent;
   @include display-flex-row();
-  justify-content: flex-end;
-  align-items: center;
+  @include justify-flex-end-align-center();
   margin-top: 10px;
   background-color: $gold;
   position: fixed;
@@ -49,7 +48,7 @@
 .login-button {
   border-radius: 8px;
   border: none;
-  background-color: #a8772d;
+  background-color: $copper;
   height: 3vh;
 }
 
@@ -77,6 +76,16 @@
   @include display-flex-justify-center-align-center();
   height: 13%;
   background-color: $gold;
+}
+
+.available-rooms-header-container {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+}
+
+.booking-for-date-message {
+  margin: 1%;
 }
 
 .past-visits-header,
@@ -126,7 +135,7 @@
   margin-bottom: 1.5vh;
   border-radius: 8px;
   border: none;
-  background-color: #a8772d;
+  background-color: $copper;
   height: 3vh;
 }
 
@@ -150,7 +159,7 @@ button {
   width: $one-hundred-percent;
   height: 5vh;
   line-height: 5vh;
-  background-color: #d9b382;
+  background-color: $light-brown;
   margin-top: 9vh;
   text-align: center;
 }
@@ -192,9 +201,7 @@ button {
 }
 
 .login-form-inputs {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  @include display-flex-column-space-around();
   height: 10%;
 }
 

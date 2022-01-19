@@ -1,10 +1,7 @@
-import domUpdates from './domUpdates';
-
 const getData = api => {
   return fetch(`http://localhost:3001/api/v1/${api}`)
     .then(response => checkForErrors(response));
 }
-
 
 const createBooking = data => {
   return fetch('http://localhost:3001/api/v1/bookings', {
@@ -19,7 +16,6 @@ const checkForErrors = response => {
   if (response.ok) {
     return response.json();
   } else {
-    domUpdates.displayModal();
     throw new Error('Something went wrong. Please try again.');
   }
 }
