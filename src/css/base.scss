@@ -2,6 +2,10 @@
 @import '_variables';
 @import '_mixins.scss';
 
+body{
+  font-family: $main-font;
+}
+
 .background-image {
   min-height: $one-hundred-percent;
   min-width: $minimum-width;
@@ -32,6 +36,7 @@
   background: none;
   color: $black;
   font-size: 20px;
+  font-family: $main-font;
 }
 
 .nav-bar-button-container {
@@ -50,6 +55,7 @@
   border: none;
   background-color: $copper;
   height: 3vh;
+  font-family: $main-font;
 }
 
 .beige {
