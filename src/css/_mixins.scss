@@ -34,3 +34,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+@mixin justify-flex-end-align-center() {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin display-flex-column-space-around() {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
