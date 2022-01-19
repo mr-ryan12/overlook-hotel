@@ -39,7 +39,7 @@ Node.js
 ## Setup 
   
 - Clone these repositories down to your local machine by running:  
-  `git@github.com:mr-ryan12/overlook-hotel.git` 
+  `git@github.com:mr-ryan12/overlook-hotel.git`  
   `https://github.com/turingschool-examples/overlook-api`
 - In seperate tabs, `cd` into `overlook-hotel` and `overlook-hotel-api` directories
 - In each directory, run `npm install`  
