@@ -47,7 +47,8 @@ Node.js
 - Visit `http://localhost:8080/` in your web browser
    
 ## Links  
-Checkout the Turing spec sheet [here](https://frontend.turing.edu/projects/overlook.html)
+Checkout the Turing spec sheet [here](https://frontend.turing.edu/projects/overlook.html)  
+Checkout the deployed application [here](https://mr-ryan12.github.io/overlook-hotel/)
 
 ## Challenges and Wins  
 This was the largest dataset I've ever worked with by far. It was very challenging, but also a great learning experience. The application fully functions as expected, so I consider that a win.
